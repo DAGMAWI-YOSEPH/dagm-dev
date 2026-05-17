@@ -102,36 +102,45 @@ const App = (() => {
     });
   }
 
+  function rotateItems(container, items, batchSize, interval) {
+    let idx = 0;
+    function showBatch() {
+      const batch = [];
+      for (let i = 0; i < batchSize; i++) {
+        batch.push(items[(idx + i) % items.length]);
+      }
+      container.style.opacity = '0';
+      setTimeout(() => {
+        container.innerHTML = batch.map(s => `<span class="${container.dataset.tagClass}">${s}</span>`).join('');
+        container.style.opacity = '1';
+      }, 300);
+      idx = (idx + batchSize) % items.length;
+    }
+    showBatch();
+    setInterval(showBatch, interval);
+  }
+
   function renderSkills(skills) {
     const grid = document.getElementById('skills-grid');
     if (!grid) return;
     grid.innerHTML = '';
-    const VISIBLE = 3;
     skills.forEach((group, i) => {
       const div = document.createElement('div');
       div.className = 'skill-group reveal';
-      if (i >= VISIBLE) div.classList.add('skill-hidden');
-      div.innerHTML = `
-        <h3>${group.category}</h3>
-        <div class="skill-tags">
-          ${group.items.map(s => `<span class="skill-tag">${s}</span>`).join('')}
-        </div>
-      `;
+      const tags = document.createElement('div');
+      tags.className = 'skill-tags';
+      tags.dataset.tagClass = 'skill-tag';
+      tags.style.transition = 'opacity 0.3s ease';
+      div.innerHTML = `<h3>${group.category}</h3>`;
+      div.appendChild(tags);
       grid.appendChild(div);
+      const BATCH = 6;
+      if (group.items.length > BATCH) {
+        rotateItems(tags, group.items, BATCH, 3000 + i * 500);
+      } else {
+        tags.innerHTML = group.items.map(s => `<span class="skill-tag">${s}</span>`).join('');
+      }
     });
-    if (skills.length > VISIBLE) {
-      const btn = document.createElement('button');
-      btn.className = 'skills-toggle';
-      btn.textContent = `Show all ${skills.length} categories`;
-      btn.addEventListener('click', () => {
-        const hidden = grid.querySelectorAll('.skill-hidden');
-        const isExpanded = btn.classList.toggle('expanded');
-        hidden.forEach(el => el.style.display = isExpanded ? '' : 'none');
-        btn.textContent = isExpanded ? 'Show less' : `Show all ${skills.length} categories`;
-      });
-      grid.parentNode.insertBefore(btn, grid.nextSibling);
-      grid.querySelectorAll('.skill-hidden').forEach(el => el.style.display = 'none');
-    }
   }
 
   function renderHeroCard(data) {
@@ -171,22 +180,9 @@ const App = (() => {
     const toolsEl = document.getElementById('about-tools');
     if (toolsEl) {
       const allSkills = data.skills.flatMap(g => g.items);
-      const SHOW = 8;
-      toolsEl.innerHTML = allSkills.map((s, i) =>
-        `<span class="tool-tag${i >= SHOW ? ' tool-hidden' : ''}">${s}</span>`
-      ).join('');
-      if (allSkills.length > SHOW) {
-        const btn = document.createElement('button');
-        btn.className = 'tools-toggle';
-        btn.textContent = `+${allSkills.length - SHOW} more`;
-        btn.addEventListener('click', () => {
-          const isExpanded = btn.classList.toggle('expanded');
-          toolsEl.querySelectorAll('.tool-hidden').forEach(el => el.style.display = isExpanded ? '' : 'none');
-          btn.textContent = isExpanded ? 'Show less' : `+${allSkills.length - SHOW} more`;
-        });
-        toolsEl.parentNode.insertBefore(btn, toolsEl.nextSibling);
-        toolsEl.querySelectorAll('.tool-hidden').forEach(el => el.style.display = 'none');
-      }
+      toolsEl.dataset.tagClass = 'tool-tag';
+      toolsEl.style.transition = 'opacity 0.3s ease';
+      rotateItems(toolsEl, allSkills, 8, 3500);
     }
   }
 
