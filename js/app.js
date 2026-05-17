@@ -171,7 +171,22 @@ const App = (() => {
     const toolsEl = document.getElementById('about-tools');
     if (toolsEl) {
       const allSkills = data.skills.flatMap(g => g.items);
-      toolsEl.innerHTML = allSkills.map(s => `<span class="tool-tag">${s}</span>`).join('');
+      const SHOW = 8;
+      toolsEl.innerHTML = allSkills.map((s, i) =>
+        `<span class="tool-tag${i >= SHOW ? ' tool-hidden' : ''}">${s}</span>`
+      ).join('');
+      if (allSkills.length > SHOW) {
+        const btn = document.createElement('button');
+        btn.className = 'tools-toggle';
+        btn.textContent = `+${allSkills.length - SHOW} more`;
+        btn.addEventListener('click', () => {
+          const isExpanded = btn.classList.toggle('expanded');
+          toolsEl.querySelectorAll('.tool-hidden').forEach(el => el.style.display = isExpanded ? '' : 'none');
+          btn.textContent = isExpanded ? 'Show less' : `+${allSkills.length - SHOW} more`;
+        });
+        toolsEl.parentNode.insertBefore(btn, toolsEl.nextSibling);
+        toolsEl.querySelectorAll('.tool-hidden').forEach(el => el.style.display = 'none');
+      }
     }
   }
 
