@@ -44,6 +44,7 @@
     .hero-greeting{font-family:'JetBrains Mono','SF Mono',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px}
     .hero-name{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:20px}
     .hero-role{font-size:1.15rem;color:var(--text-secondary);margin-bottom:20px}
+    .card-img{width:100%;aspect-ratio:1/1;overflow:hidden;border-bottom:1px solid var(--border-light)}.card-img img{width:100%;height:100%;object-fit:cover;display:block}
     @media(max-width:768px){.site{grid-template-columns:1fr}.sidebar-left{display:none}.hero{grid-template-columns:1fr;padding:60px 24px;min-height:auto}.tab{padding:8px 16px;font-size:.65rem}}
   </style>
 
@@ -134,7 +135,10 @@
             <div class="hero-card">
               <div class="card-titlebar">
                 <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                <span class="card-filename">about.md</span>
+                <span class="card-filename">me.jpg</span>
+              </div>
+              <div class="card-img">
+                <img src="img/me.jpg" alt="Dagmawi Yoseph" id="card-photo">
               </div>
               <div class="card-body">
                 <p class="card-line"><span class="line-number">01</span> <span class="card-key">name:</span> <span id="card-name">Dagmawi Yoseph</span></p>
