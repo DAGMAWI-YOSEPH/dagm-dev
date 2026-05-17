@@ -5,9 +5,9 @@
 
 :root {
   --transition: 0.4s;
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
@@ -24,7 +24,7 @@
   --bg-tab-active: #f5f2eb;
   --text: #1a1a1a;
   --text-secondary: #555555;
-  --text-muted: #767676;
+  --text-muted: #6b6b6b;
   --accent: #1a1a1a;
   --border: #d4d0c8;
   --border-light: #e8e4dc;
@@ -312,6 +312,7 @@ button:focus:not(:focus-visible) { outline: none; }
   font-size: clamp(2.8rem, 6vw, 5.5rem);
   font-weight: 900; line-height: 0.95;
   letter-spacing: -0.04em; margin-bottom: 20px;
+  min-height: 1em;
 }
 .hero-role { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 20px; }
 .typing-highlight {
@@ -618,9 +619,9 @@ button:focus:not(:focus-visible) { outline: none; }
 .skills-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;
 }
-.skill-group h4 {
+.skill-group h3 {
   font-family: var(--font-mono); font-size: 0.7rem; text-transform: uppercase;
-  letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 16px;
+  letter-spacing: 0.12em; color: var(--text-muted); margin-bottom: 16px; font-weight: 500;
 }
 .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .skill-tag {

@@ -108,7 +108,7 @@ const App = (() => {
       const div = document.createElement('div');
       div.className = 'skill-group reveal';
       div.innerHTML = `
-        <h4>${group.category}</h4>
+        <h3>${group.category}</h3>
         <div class="skill-tags">
           ${group.items.map(s => `<span class="skill-tag">${s}</span>`).join('')}
         </div>
