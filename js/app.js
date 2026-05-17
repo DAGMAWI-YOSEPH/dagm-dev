@@ -128,8 +128,8 @@ const App = (() => {
     if (locEl) locEl.textContent = data.meta.location;
     if (focusEl) focusEl.textContent = 'Web Development';
     if (skillsEl) {
-      const tags = data.meta.hero_tags || data.skills.flatMap(g => g.items).slice(0, 6);
-      skillsEl.innerHTML = tags.map(s => `<span class="card-skill-tag">${s}</span>`).join('');
+      const allSkills = data.skills.flatMap(g => g.items).slice(0, 6);
+      skillsEl.innerHTML = allSkills.map(s => `<span class="card-skill-tag">${s}</span>`).join('');
     }
   }
 
@@ -162,6 +162,12 @@ const App = (() => {
 
   function populateSite(data) {
     document.getElementById('hero-name').textContent = data.meta.name;
+
+    const heroTags = document.getElementById('hero-tags');
+    if (heroTags && data.meta.hero_tags) {
+      heroTags.innerHTML = data.meta.hero_tags.map(t => `<span class="hero-tag">${t}</span>`).join('');
+    }
+
     document.getElementById('hero-tagline').textContent = data.meta.tagline;
     document.getElementById('hero-status').textContent = data.meta.status;
     document.getElementById('contact-specialization').textContent = data.meta.specialization;
