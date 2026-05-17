@@ -551,13 +551,6 @@ button:focus:not(:focus-visible) { outline: none; }
   border: 1px solid var(--border);
   border-radius: 999px;
 }
-.tools-toggle {
-  background: none; border: none; cursor: pointer;
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--text-muted); padding: 6px 0; text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.tools-toggle:hover { color: var(--text); }
 
 /* About social links */
 .about-social-links {
@@ -643,13 +636,6 @@ button:focus:not(:focus-visible) { outline: none; }
   transition: border-color 0.2s, color 0.2s;
 }
 .skill-tag:hover { border-color: var(--text); color: var(--text); }
-.skills-toggle {
-  display: block; margin: 32px auto 0; background: none; border: 1px solid var(--border);
-  border-radius: 999px; padding: 10px 28px; font-family: var(--font-mono);
-  font-size: 0.75rem; color: var(--text-muted); cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-}
-.skills-toggle:hover { border-color: var(--text); color: var(--text); }
 
 /* ============================================
    CONTACT
