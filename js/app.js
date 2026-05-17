@@ -106,9 +106,11 @@ const App = (() => {
     const grid = document.getElementById('skills-grid');
     if (!grid) return;
     grid.innerHTML = '';
-    skills.forEach(group => {
+    const VISIBLE = 3;
+    skills.forEach((group, i) => {
       const div = document.createElement('div');
       div.className = 'skill-group reveal';
+      if (i >= VISIBLE) div.classList.add('skill-hidden');
       div.innerHTML = `
         <h3>${group.category}</h3>
         <div class="skill-tags">
@@ -117,6 +119,19 @@ const App = (() => {
       `;
       grid.appendChild(div);
     });
+    if (skills.length > VISIBLE) {
+      const btn = document.createElement('button');
+      btn.className = 'skills-toggle';
+      btn.textContent = `Show all ${skills.length} categories`;
+      btn.addEventListener('click', () => {
+        const hidden = grid.querySelectorAll('.skill-hidden');
+        const isExpanded = btn.classList.toggle('expanded');
+        hidden.forEach(el => el.style.display = isExpanded ? '' : 'none');
+        btn.textContent = isExpanded ? 'Show less' : `Show all ${skills.length} categories`;
+      });
+      grid.parentNode.insertBefore(btn, grid.nextSibling);
+      grid.querySelectorAll('.skill-hidden').forEach(el => el.style.display = 'none');
+    }
   }
 
   function renderHeroCard(data) {
