@@ -304,15 +304,17 @@ button:focus:not(:focus-visible) { outline: none; }
   letter-spacing: -0.04em; margin-bottom: 20px;
   min-height: 1em;
 }
-.hero-tags {
-  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; max-width: 480px;
+.hero-role { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 20px; }
+.typing-highlight {
+  font-weight: 600; color: var(--text);
+  border-bottom: 2px solid var(--text); padding-bottom: 1px;
 }
-.hero-tag {
-  font-family: var(--font-mono); font-size: 0.72rem;
-  padding: 4px 12px; background: var(--bg-elevated);
-  color: var(--text-secondary); border-radius: 999px;
-  border: 1px solid var(--border-light);
+.typing-cursor {
+  display: inline-block; width: 2px; height: 1.1em;
+  background: var(--text); margin-left: 2px; vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
 }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .hero-tagline {
   font-size: 1rem; color: var(--text-secondary);
   max-width: 420px; margin-bottom: 24px;
