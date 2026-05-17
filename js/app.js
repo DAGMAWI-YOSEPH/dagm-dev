@@ -291,10 +291,7 @@ const App = (() => {
     }
   }
 
-  function hideLoader() {
-    const loader = document.getElementById('loader');
-    setTimeout(() => { loader.classList.add('hidden'); }, 600);
-  }
+  function hideLoader() {}
 
   async function init() {
     Router.register('#', () => {

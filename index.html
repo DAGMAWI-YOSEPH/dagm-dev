@@ -15,17 +15,49 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Critical CSS inlined for instant first paint -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#f5f2eb;--bg-card:#fff;--bg-elevated:#ece9e1;--bg-tab:#e8e4dc;--bg-tab-active:#f5f2eb;--text:#1a1a1a;--text-secondary:#555;--text-muted:#6b6b6b;--border:#d4d0c8;--border-light:#e8e4dc;--dot-red:#ff5f57;--dot-yellow:#febc2e;--dot-green:#28c840;--sidebar-w:60px}
+    [data-theme="dark"]{--bg:#0d0d0d;--bg-card:#1a1a1a;--bg-elevated:#1e1e1e;--bg-tab:#141414;--bg-tab-active:#0d0d0d;--text:#f0ede6;--text-secondary:#a0a0a0;--text-muted:#888;--border:#2a2a2a;--border-light:#1e1e1e}
+    html{font-size:16px;-webkit-font-smoothing:antialiased}
+    body{font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-elevated);color:var(--text);line-height:1.7;overflow-x:hidden}
+    .site{display:grid;grid-template-columns:var(--sidebar-w) 1fr;min-height:100vh}
+    .main{grid-column:2}
+    .sidebar-left{position:fixed;left:0;top:0;width:var(--sidebar-w);height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:28px 0;z-index:200;background:var(--bg-elevated);border-right:1px solid var(--border)}
+    .logo{font-weight:900;font-size:1.1rem;color:var(--text);letter-spacing:-0.03em;text-decoration:none}
+    .browser-chrome{position:sticky;top:0;z-index:150;background:var(--bg-elevated);border-bottom:1px solid var(--border)}
+    .browser-titlebar{display:flex;align-items:center;padding:10px 20px;gap:12px;border-bottom:1px solid var(--border-light)}
+    .browser-dots{display:flex;gap:6px}
+    .browser-dots .dot{width:12px;height:12px;border-radius:50%}
+    .browser-dots .dot:nth-child(1){background:var(--dot-red)}.browser-dots .dot:nth-child(2){background:var(--dot-yellow)}.browser-dots .dot:nth-child(3){background:var(--dot-green)}
+    .browser-url{flex:1;display:flex;align-items:center;gap:6px;background:var(--bg);padding:6px 14px;border-radius:6px;border:1px solid var(--border-light)}
+    .browser-url-text{font-family:'JetBrains Mono','SF Mono',monospace;font-size:.72rem;color:var(--text-secondary)}
+    .browser-url-icon{color:var(--text-muted);display:flex}
+    .tab-bar{display:flex;padding:0 8px;gap:2px;align-items:flex-end}
+    .tab{position:relative;padding:10px 24px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:.72rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--text-muted);background:var(--bg-tab);border:1px solid var(--border);border-bottom:none;border-radius:10px 10px 0 0;text-decoration:none;transform:translateY(1px);transition:all .25s}
+    .tab.active{color:var(--text);background:var(--bg);z-index:2;transform:translateY(0);font-weight:600}
+    .tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--bg)}
+    .browser-body{background:var(--bg);min-height:calc(100vh - 92px)}
+    .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:calc(100vh - 92px);padding:80px 60px;gap:60px}
+    .hero-greeting{font-family:'JetBrains Mono','SF Mono',monospace;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px}
+    .hero-name{font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:20px}
+    .hero-role{font-size:1.15rem;color:var(--text-secondary);margin-bottom:20px}
+    @media(max-width:768px){.site{grid-template-columns:1fr}.sidebar-left{display:none}.hero{grid-template-columns:1fr;padding:60px 24px;min-height:auto}.tab{padding:8px 16px;font-size:.65rem}}
+  </style>
+
+  <link rel="stylesheet" href="css/style.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/style.css"></noscript>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap"></noscript>
+
+  <script>
+    (function(){var t=localStorage.getItem('dagm-theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#hero">Skip to content</a>
-
-  <!-- Loader -->
-  <div class="loader" id="loader" role="status" aria-label="Loading">
-    <span class="loader-text">DAGM.</span>
-  </div>
 
   <!-- ========== PUBLIC SITE ========== -->
   <div id="site" class="site">
@@ -57,7 +89,7 @@
           </button>
         </div>
 
-        <!-- Tab Navigation (folder tabs like img 4459) -->
+        <!-- Tab Navigation -->
         <nav class="tab-bar" id="tab-bar" role="tablist" aria-label="Site sections">
           <a href="#hero" class="tab active" data-section="hero" role="tab" aria-selected="true">
             <span class="tab-label">Home</span>
@@ -77,21 +109,21 @@
         </nav>
       </div>
 
-      <!-- Page Content (inside the "browser window") -->
+      <!-- Page Content -->
       <div class="browser-body">
 
-        <!-- Section 1: Hero -->
+        <!-- Section 1: Hero (content hardcoded for instant LCP) -->
         <section class="hero" id="hero">
           <div class="hero-content">
             <p class="hero-greeting">Hello, I'm</p>
-            <h1 class="hero-name" id="hero-name"></h1>
+            <h1 class="hero-name" id="hero-name">DAGM. Y</h1>
             <p class="hero-role">
               A <span class="typing-highlight" id="typing-text">developer</span><span class="typing-cursor"></span>
             </p>
-            <p class="hero-tagline" id="hero-tagline"></p>
+            <p class="hero-tagline" id="hero-tagline">I enjoy working with businesses and creative individuals.</p>
             <div class="hero-status">
               <span class="status-dot"></span>
-              <span id="hero-status"></span>
+              <span id="hero-status">Currently available for freelance work.</span>
             </div>
             <div class="hero-actions">
               <a href="#projects" class="btn btn-primary">View Work <span class="arrow">&rarr;</span></a>
@@ -105,9 +137,9 @@
                 <span class="card-filename">about.md</span>
               </div>
               <div class="card-body">
-                <p class="card-line"><span class="line-number">01</span> <span class="card-key">name:</span> <span id="card-name"></span></p>
-                <p class="card-line"><span class="line-number">02</span> <span class="card-key">location:</span> <span id="card-location"></span></p>
-                <p class="card-line"><span class="line-number">03</span> <span class="card-key">focus:</span> <span id="card-focus"></span></p>
+                <p class="card-line"><span class="line-number">01</span> <span class="card-key">name:</span> <span id="card-name">Dagmawi Yoseph</span></p>
+                <p class="card-line"><span class="line-number">02</span> <span class="card-key">location:</span> <span id="card-location">Addis Ababa, Ethiopia</span></p>
+                <p class="card-line"><span class="line-number">03</span> <span class="card-key">focus:</span> <span id="card-focus">Web Development</span></p>
                 <p class="card-line"><span class="line-number">04</span> <span class="card-key">status:</span> <span class="card-status">available</span></p>
                 <p class="card-line"><span class="line-number">05</span></p>
                 <div class="card-skills" id="card-skills"></div>
@@ -116,25 +148,23 @@
           </div>
         </section>
 
-        <!-- Section 2: About (scrapbook / clipboard style like img 4457) -->
+        <!-- Section 2: About -->
         <section class="about" id="about">
           <div class="section-header">
             <h2 class="section-title">About</h2>
           </div>
           <div class="about-scrapbook">
-            <!-- Main card (clipboard) -->
             <div class="scrapbook-card scrapbook-main">
               <div class="clip-top">
                 <div class="binder-clip"></div>
               </div>
               <div class="scrapbook-header">
-                <h3 class="scrapbook-greeting">Hi, I'm <span class="scrapbook-name" id="about-name">Dagmawi</span></h3>
+                <h3 class="scrapbook-greeting">Hi, I'm <span class="scrapbook-name" id="about-name">Dagmawi Yoseph</span></h3>
                 <p class="scrapbook-role">Top Rated Freelance WordPress Developer</p>
               </div>
               <div class="scrapbook-bio" id="about-bio"></div>
             </div>
 
-            <!-- Stats / highlights cards -->
             <div class="scrapbook-sidebar">
               <div class="scrapbook-card scrapbook-stats">
                 <h3 class="scrapbook-card-title">Highlights</h3>
@@ -179,11 +209,11 @@
         <!-- Section 5: Contact -->
         <section class="contact" id="contact">
           <h2 class="contact-heading">Let's work together.</h2>
-          <p class="contact-sub" id="contact-specialization"></p>
+          <p class="contact-sub" id="contact-specialization">Specializing in fast, mobile-responsive, SEO-friendly websites that drive results.</p>
           <div class="contact-links">
-            <a class="contact-link" id="contact-email" href="">
+            <a class="contact-link" id="contact-email" href="mailto:Dagmawi.yoseph@icloud.com">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              <span id="contact-email-text"></span>
+              <span id="contact-email-text">Dagmawi.yoseph@icloud.com</span>
             </a>
             <a class="contact-link" href="tel:+251911129513">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
@@ -194,7 +224,7 @@
 
         <!-- Footer -->
         <footer class="site-footer">
-          <p>Design by Dagm &mdash; &copy; <span id="footer-year"></span> All rights reserved.</p>
+          <p>Design by Dagm &mdash; &copy; <span id="footer-year">2026</span> All rights reserved.</p>
         </footer>
       </div>
     </main>
@@ -210,7 +240,6 @@
         <a href="#" class="btn btn-ghost btn-sm">Back to Site</a>
       </div>
     </div>
-
     <div class="admin-content">
       <div class="admin-login" id="admin-login">
         <div class="admin-login-card">
@@ -222,7 +251,6 @@
           </button>
         </div>
       </div>
-
       <div class="admin-editor" id="admin-editor" style="display:none">
         <div class="editor-section">
           <h3>Meta</h3>
@@ -238,7 +266,6 @@
             <label>Typing Words (comma separated)</label><input type="text" id="edit-typing_words">
           </div>
         </div>
-
         <div class="editor-section">
           <h3>Social Links</h3>
           <div class="field-group">
@@ -248,18 +275,15 @@
             <label>Email URL</label><input type="text" id="edit-social-email">
           </div>
         </div>
-
         <div class="editor-section">
           <h3>Projects</h3>
           <div id="edit-projects"></div>
           <button class="btn btn-ghost btn-sm" id="add-project">+ Add Project</button>
         </div>
-
         <div class="editor-section">
           <h3>Skills</h3>
           <div id="edit-skills"></div>
         </div>
-
         <div class="admin-save-bar">
           <span class="save-status" id="save-status"></span>
           <button class="btn btn-primary" id="admin-save">Commit & Push</button>
