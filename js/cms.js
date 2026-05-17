@@ -132,16 +132,19 @@ const CMS = (() => {
   // --- Dashboard UI ---
 
   function populateEditor(data) {
-    const fields = ['name', 'fullName', 'location', 'tagline', 'bio', 'status', 'specialization', 'email'];
+    const fields = ['name', 'fullName', 'location', 'tagline', 'status', 'specialization', 'email'];
     fields.forEach(f => {
       const el = document.getElementById(`edit-${f}`);
       if (el) el.value = data.meta[f] || '';
     });
 
+    const bioEl = document.getElementById('edit-bio');
+    if (bioEl) bioEl.value = data.meta.aboutBio || '';
+
     const tw = document.getElementById('edit-typing_words');
     if (tw) tw.value = (data.meta.typing_words || []).join(', ');
 
-    ['github', 'spotify', 'email'].forEach(s => {
+    ['github', 'spotify', 'upwork', 'email'].forEach(s => {
       const el = document.getElementById(`edit-social-${s}`);
       if (el) el.value = data.socials[s] || '';
     });
@@ -191,16 +194,19 @@ const CMS = (() => {
   function collectEditorData() {
     const data = JSON.parse(JSON.stringify(contentData));
 
-    const fields = ['name', 'fullName', 'location', 'tagline', 'bio', 'status', 'specialization', 'email'];
+    const fields = ['name', 'fullName', 'location', 'tagline', 'status', 'specialization', 'email'];
     fields.forEach(f => {
       const el = document.getElementById(`edit-${f}`);
       if (el) data.meta[f] = el.value;
     });
 
+    const bioEl = document.getElementById('edit-bio');
+    if (bioEl) data.meta.aboutBio = bioEl.value;
+
     const tw = document.getElementById('edit-typing_words');
     if (tw) data.meta.typing_words = tw.value.split(',').map(s => s.trim()).filter(Boolean);
 
-    ['github', 'spotify', 'email'].forEach(s => {
+    ['github', 'spotify', 'upwork', 'email'].forEach(s => {
       const el = document.getElementById(`edit-social-${s}`);
       if (el) data.socials[s] = el.value;
     });

@@ -35,106 +35,158 @@
       <ul class="social-links" id="social-links"></ul>
     </aside>
 
-    <!-- Fixed Right Sidebar -->
-    <aside class="sidebar sidebar-right">
-      <nav>
-        <ul class="vertical-nav">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#projects">Work</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </aside>
-
     <!-- Main Content -->
     <main class="main">
 
-      <!-- Section 1: Hero -->
-      <section class="hero" id="hero">
-        <div class="hero-content">
-          <p class="hero-greeting">Hello, I'm</p>
-          <h1 class="hero-name" id="hero-name"></h1>
-          <p class="hero-role">
-            A <span class="typing-highlight" id="typing-text">developer</span><span class="typing-cursor"></span>
-          </p>
-          <p class="hero-tagline" id="hero-tagline"></p>
-          <p class="hero-bio" id="hero-bio"></p>
-          <div class="hero-status">
-            <span class="status-dot"></span>
-            <span id="hero-status"></span>
+      <!-- Browser Window Chrome -->
+      <div class="browser-chrome">
+        <div class="browser-titlebar">
+          <div class="browser-dots">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           </div>
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">View Work <span class="arrow">&rarr;</span></a>
-            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          <div class="browser-url">
+            <span class="browser-url-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            </span>
+            <span class="browser-url-text">dagm.dev</span>
           </div>
+          <button class="theme-toggle-mini" id="theme-toggle">
+            <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
         </div>
-        <div class="hero-visual">
-          <div class="hero-card">
-            <div class="card-titlebar">
-              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-              <span class="card-filename">about.md</span>
-            </div>
-            <div class="card-body">
-              <p class="card-line"><span class="line-number">01</span> <span class="card-key">name:</span> <span id="card-name"></span></p>
-              <p class="card-line"><span class="line-number">02</span> <span class="card-key">location:</span> <span id="card-location"></span></p>
-              <p class="card-line"><span class="line-number">03</span> <span class="card-key">focus:</span> <span id="card-focus"></span></p>
-              <p class="card-line"><span class="line-number">04</span> <span class="card-key">status:</span> <span class="card-status">available</span></p>
-              <p class="card-line"><span class="line-number">05</span></p>
-              <div class="card-skills" id="card-skills"></div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Quick Links -->
-      <div class="quick-links">
-        <a href="#projects" class="quick-link">
-          <span>Projects</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </a>
-        <a href="#skills" class="quick-link">
-          <span>Skills</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </a>
-        <a href="#contact" class="quick-link">
-          <span>Contact</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </a>
-        <button class="quick-link theme-toggle" id="theme-toggle">
-          <span id="theme-label">Dark</span>
-          <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-          <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        </button>
+        <!-- Tab Navigation (folder tabs like img 4459) -->
+        <nav class="tab-bar" id="tab-bar">
+          <a href="#hero" class="tab active" data-section="hero">
+            <span class="tab-label">Home</span>
+          </a>
+          <a href="#about" class="tab" data-section="about">
+            <span class="tab-label">About</span>
+          </a>
+          <a href="#projects" class="tab" data-section="projects">
+            <span class="tab-label">Projects</span>
+          </a>
+          <a href="#skills" class="tab" data-section="skills">
+            <span class="tab-label">Skills</span>
+          </a>
+          <a href="#contact" class="tab" data-section="contact">
+            <span class="tab-label">Contact</span>
+          </a>
+        </nav>
       </div>
 
-      <!-- Section 2: Projects -->
-      <section class="projects" id="projects">
-        <div class="section-header">
-          <h2 class="section-title">Projects</h2>
-          <span class="section-count" id="project-count"></span>
-        </div>
-        <div class="projects-grid" id="projects-grid"></div>
-      </section>
+      <!-- Page Content (inside the "browser window") -->
+      <div class="browser-body">
 
-      <!-- Skills -->
-      <section class="skills" id="skills">
-        <div class="section-header">
-          <h2 class="section-title">Skills</h2>
-        </div>
-        <div class="skills-grid" id="skills-grid"></div>
-      </section>
+        <!-- Section 1: Hero -->
+        <section class="hero" id="hero">
+          <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name" id="hero-name"></h1>
+            <p class="hero-role">
+              A <span class="typing-highlight" id="typing-text">developer</span><span class="typing-cursor"></span>
+            </p>
+            <p class="hero-tagline" id="hero-tagline"></p>
+            <div class="hero-status">
+              <span class="status-dot"></span>
+              <span id="hero-status"></span>
+            </div>
+            <div class="hero-actions">
+              <a href="#projects" class="btn btn-primary">View Work <span class="arrow">&rarr;</span></a>
+              <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="hero-card">
+              <div class="card-titlebar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span class="card-filename">about.md</span>
+              </div>
+              <div class="card-body">
+                <p class="card-line"><span class="line-number">01</span> <span class="card-key">name:</span> <span id="card-name"></span></p>
+                <p class="card-line"><span class="line-number">02</span> <span class="card-key">location:</span> <span id="card-location"></span></p>
+                <p class="card-line"><span class="line-number">03</span> <span class="card-key">focus:</span> <span id="card-focus"></span></p>
+                <p class="card-line"><span class="line-number">04</span> <span class="card-key">status:</span> <span class="card-status">available</span></p>
+                <p class="card-line"><span class="line-number">05</span></p>
+                <div class="card-skills" id="card-skills"></div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <!-- Contact -->
-      <section class="contact" id="contact">
-        <h2 class="contact-heading">Let's work together.</h2>
-        <p class="contact-sub" id="contact-specialization"></p>
-        <a class="contact-email" id="contact-email" href=""></a>
-      </section>
+        <!-- Section 2: About (scrapbook / clipboard style like img 4457) -->
+        <section class="about" id="about">
+          <div class="section-header">
+            <h2 class="section-title">About</h2>
+          </div>
+          <div class="about-scrapbook">
+            <!-- Main card (clipboard) -->
+            <div class="scrapbook-card scrapbook-main">
+              <div class="clip-top">
+                <div class="binder-clip"></div>
+              </div>
+              <div class="scrapbook-header">
+                <h3 class="scrapbook-greeting">Hi, I'm <span class="scrapbook-name" id="about-name">Dagmawi</span></h3>
+                <p class="scrapbook-role">Top Rated Freelance WordPress Developer</p>
+              </div>
+              <div class="scrapbook-bio" id="about-bio"></div>
+            </div>
 
-      <!-- Footer -->
-      <footer class="site-footer">
-        <p>Design by Dagm &mdash; &copy; <span id="footer-year"></span> All rights reserved.</p>
-      </footer>
+            <!-- Stats / highlights cards -->
+            <div class="scrapbook-sidebar">
+              <div class="scrapbook-card scrapbook-stats">
+                <h4 class="scrapbook-card-title">Highlights</h4>
+                <ul class="stat-list">
+                  <li><span class="stat-num">3+</span> Years Experience</li>
+                  <li><span class="stat-num">&lt;3s</span> Load Times</li>
+                  <li><span class="stat-num">40%</span> Conversion Boost</li>
+                  <li><span class="stat-num">&infin;</span> Clients Worldwide</li>
+                </ul>
+              </div>
+
+              <div class="scrapbook-card scrapbook-tools">
+                <h4 class="scrapbook-card-title">Tools</h4>
+                <div class="tool-tags" id="about-tools"></div>
+              </div>
+
+              <div class="scrapbook-card scrapbook-links">
+                <h4 class="scrapbook-card-title">Find Me</h4>
+                <div class="about-social-links" id="about-social-links"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Projects -->
+        <section class="projects" id="projects">
+          <div class="section-header">
+            <h2 class="section-title">Projects</h2>
+            <span class="section-count" id="project-count"></span>
+          </div>
+          <div class="projects-grid" id="projects-grid"></div>
+        </section>
+
+        <!-- Section 4: Skills -->
+        <section class="skills" id="skills">
+          <div class="section-header">
+            <h2 class="section-title">Skills</h2>
+          </div>
+          <div class="skills-grid" id="skills-grid"></div>
+        </section>
+
+        <!-- Section 5: Contact -->
+        <section class="contact" id="contact">
+          <h2 class="contact-heading">Let's work together.</h2>
+          <p class="contact-sub" id="contact-specialization"></p>
+          <a class="contact-email" id="contact-email" href=""></a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+          <p>Design by Dagm &mdash; &copy; <span id="footer-year"></span> All rights reserved.</p>
+        </footer>
+      </div>
     </main>
   </div>
 
@@ -169,7 +221,7 @@
             <label>Full Name</label><input type="text" id="edit-fullName">
             <label>Location</label><input type="text" id="edit-location">
             <label>Tagline</label><input type="text" id="edit-tagline">
-            <label>Bio</label><textarea id="edit-bio" rows="2"></textarea>
+            <label>Bio</label><textarea id="edit-bio" rows="6"></textarea>
             <label>Status</label><input type="text" id="edit-status">
             <label>Specialization</label><input type="text" id="edit-specialization">
             <label>Email</label><input type="email" id="edit-email">
@@ -182,6 +234,7 @@
           <div class="field-group">
             <label>GitHub</label><input type="url" id="edit-social-github">
             <label>Spotify</label><input type="url" id="edit-social-spotify">
+            <label>Upwork</label><input type="url" id="edit-social-upwork">
             <label>Email URL</label><input type="text" id="edit-social-email">
           </div>
         </div>
