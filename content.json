@@ -74,21 +74,105 @@
   ],
   "skills": [
     {
-      "category": "Web",
+      "category": "Development",
       "items": [
         "WordPress",
+        "WooCommerce",
         "Elementor",
-        "HTML/CSS",
-        "JavaScript"
+        "HTML5/CSS3/PHP",
+        "JavaScript",
+        "Full-Stack WordPress",
+        "WordPress Multisite",
+        "Membership Websites",
+        "Multilingual Websites",
+        "WordPress Plugin Development",
+        "WordPress Custom Code",
+        "Genesis Framework",
+        "Gutenberg"
       ]
     },
     {
-      "category": "Focus",
+      "category": "Design & Page Builders",
       "items": [
-        "Mobile-responsive",
-        "SEO",
-        "High-converting",
-        "Performance"
+        "Elementor Pro",
+        "WPBakery",
+        "Beaver Builder",
+        "Fusion Builder",
+        "Divi",
+        "Thrive Themes",
+        "Figma to WordPress",
+        "PSD to WordPress",
+        "Adobe XD to WordPress",
+        "Landing Page Design"
+      ]
+    },
+    {
+      "category": "Themes",
+      "items": [
+        "Avada",
+        "Bridge",
+        "Enfold",
+        "Flatsome",
+        "Impreza",
+        "Jupiter",
+        "Kallyas",
+        "Kalium",
+        "Newspaper",
+        "Salient",
+        "The7",
+        "X Theme",
+        "Brooklyn"
+      ]
+    },
+    {
+      "category": "E-Commerce",
+      "items": [
+        "WooCommerce Integration",
+        "E-Commerce Setup",
+        "Product Pages",
+        "Payment Gateways",
+        "Secure Checkout",
+        "ClickBank",
+        "Donation Pages"
+      ]
+    },
+    {
+      "category": "SEO & Performance",
+      "items": [
+        "On-Page SEO",
+        "Off-Page SEO",
+        "WordPress SEO Plugins",
+        "Speed Optimization",
+        "SSL/HTTPS Activation",
+        "Load Time Optimization",
+        "Core Web Vitals"
+      ]
+    },
+    {
+      "category": "Maintenance & Support",
+      "items": [
+        "Site Maintenance",
+        "Bug Fixes",
+        "Malware Removal",
+        "Hacked Site Recovery",
+        "WordPress Backup",
+        "WordPress Updates",
+        "Website Redesign",
+        "WordPress Consultation"
+      ]
+    },
+    {
+      "category": "Migration & Hosting",
+      "items": [
+        "WordPress Migration",
+        "Wix to WordPress",
+        "Server Migration",
+        "GoDaddy",
+        "Bluehost",
+        "SiteGround",
+        "WP Engine",
+        "Namecheap",
+        "HostGator"
       ]
     }
   ]
