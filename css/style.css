@@ -551,6 +551,13 @@ button:focus:not(:focus-visible) { outline: none; }
   border: 1px solid var(--border);
   border-radius: 999px;
 }
+.tools-toggle {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--text-muted); padding: 6px 0; text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tools-toggle:hover { color: var(--text); }
 
 /* About social links */
 .about-social-links {
