@@ -4,11 +4,16 @@
     "fullName": "Dagmawi Yoseph",
     "location": "Addis Ababa, Ethiopia",
     "tagline": "I enjoy working with businesses and creative individuals.",
-    "aboutBio": "Hi, I'm Dagmawi — Top Rated Freelance WordPress developer, designer, and Elementor specialist. I help businesses build modern, high-converting websites.\n\nI have delivered multiple sites that load under 3 seconds, and improved conversion rates by up to 40% for clients via landing pages built with Elementor.\n\nI'm a WordPress and Elementor Pro developer with 3+ years of experience and multiple websites delivered for clients worldwide. I specialize in building websites that are fast, mobile-responsive, SEO-friendly, and easy to manage.",
+    "aboutBio": "Hi, I'm Dagmawi a Top Rated Freelance WordPress developer, designer, and Elementor specialist. I help businesses build modern, high-converting websites.\n\nI have delivered multiple sites that load under 3 seconds, and improved conversion rates by up to 40% for clients via landing pages built with Elementor.\n\nI'm a WordPress and Elementor Pro developer with 3+ years of experience and multiple websites delivered for clients worldwide. I specialize in building websites that are fast, mobile-responsive, SEO-friendly, and easy to manage.",
     "status": "Currently available for freelance work.",
     "specialization": "Specializing in fast, mobile-responsive, SEO-friendly websites that drive results.",
     "email": "Dagmawi.yoseph@icloud.com",
-    "typing_words": ["developer", "designer", "builder", "freelancer"]
+    "typing_words": [
+      "developer",
+      "designer",
+      "builder",
+      "freelancer"
+    ]
   },
   "socials": {
     "github": "https://github.com/DAGMAWI-YOSEPH",
@@ -17,16 +22,67 @@
     "email": "mailto:Dagmawi.yoseph@icloud.com"
   },
   "projects": [
-    { "id": "heron-dance", "title": "Heron Dance", "url": "https://herondance.org", "status": "ongoing" },
-    { "id": "jbdondolo", "title": "JBDondolo.org", "url": "https://jbdondolo.org", "status": "ongoing" },
-    { "id": "lonestar-peptides", "title": "Lonestar Peptides", "url": "https://lonestarpeptides.org", "status": "2026" },
-    { "id": "true-light-pools", "title": "True Light Pools", "url": "https://truelightpools.com", "status": "2026" },
-    { "id": "bps-pools", "title": "BPS Pools", "url": "https://bpspools.net", "status": "2026" },
-    { "id": "the-arch", "title": "The Arch International", "url": "https://thearchinternational.com", "status": "2025" },
-    { "id": "rose-bookshop", "title": "Rose Bookshop", "url": "https://rosebookshop.com", "status": "2024" }
+    {
+      "id": "heron-dance",
+      "title": "Heron Dance",
+      "url": "https://herondance.org",
+      "status": "ongoing"
+    },
+    {
+      "id": "jbdondolo-org",
+      "title": "JBDondolo.org",
+      "url": "https://jbdondolo.org",
+      "status": "ongoing"
+    },
+    {
+      "id": "lonestar-peptides",
+      "title": "Lonestar Peptides",
+      "url": "https://lonestarpeptides.org",
+      "status": "2026"
+    },
+    {
+      "id": "true-light-pools",
+      "title": "True Light Pools",
+      "url": "https://truelightpools.com",
+      "status": "2026"
+    },
+    {
+      "id": "bps-pools",
+      "title": "BPS Pools",
+      "url": "https://bpspools.net",
+      "status": "2026"
+    },
+    {
+      "id": "the-arch-international",
+      "title": "The Arch International",
+      "url": "https://thearchinternational.com",
+      "status": "2025"
+    },
+    {
+      "id": "rose-bookshop",
+      "title": "Rose Bookshop",
+      "url": "https://rosebookshop.com",
+      "status": "2024"
+    }
   ],
   "skills": [
-    { "category": "Web", "items": ["WordPress", "Elementor", "HTML/CSS", "JavaScript"] },
-    { "category": "Focus", "items": ["Mobile-responsive", "SEO", "High-converting", "Performance"] }
+    {
+      "category": "Web",
+      "items": [
+        "WordPress",
+        "Elementor",
+        "HTML/CSS",
+        "JavaScript"
+      ]
+    },
+    {
+      "category": "Focus",
+      "items": [
+        "Mobile-responsive",
+        "SEO",
+        "High-converting",
+        "Performance"
+      ]
+    }
   ]
 }
