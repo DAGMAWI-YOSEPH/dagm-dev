@@ -162,12 +162,6 @@ const App = (() => {
 
   function populateSite(data) {
     document.getElementById('hero-name').textContent = data.meta.name;
-
-    const heroTags = document.getElementById('hero-tags');
-    if (heroTags && data.meta.hero_tags) {
-      heroTags.innerHTML = data.meta.hero_tags.map(t => `<span class="hero-tag">${t}</span>`).join('');
-    }
-
     document.getElementById('hero-tagline').textContent = data.meta.tagline;
     document.getElementById('hero-status').textContent = data.meta.status;
     document.getElementById('contact-specialization').textContent = data.meta.specialization;
