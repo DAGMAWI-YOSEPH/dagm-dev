@@ -156,7 +156,7 @@ const App = (() => {
 
     const emailLink = document.getElementById('contact-email');
     emailLink.href = `mailto:${data.meta.email}`;
-    emailLink.textContent = data.meta.email;
+    document.getElementById('contact-email-text').textContent = data.meta.email;
 
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
