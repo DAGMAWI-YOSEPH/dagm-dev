@@ -636,6 +636,14 @@ button:focus:not(:focus-visible) { outline: none; }
   transition: border-color 0.2s, color 0.2s;
 }
 .skill-tag:hover { border-color: var(--text); color: var(--text); }
+.skills-toggle, .tools-toggle {
+  background: none; border: 1px solid var(--border); border-radius: 999px;
+  padding: 8px 24px; font-family: var(--font-mono); font-size: 0.72rem;
+  color: var(--text-muted); cursor: pointer; margin-top: 24px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.skills-toggle { display: block; margin-left: auto; margin-right: auto; }
+.skills-toggle:hover, .tools-toggle:hover { border-color: var(--text); color: var(--text); }
 
 /* ============================================
    CONTACT

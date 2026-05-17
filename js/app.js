@@ -102,45 +102,67 @@ const App = (() => {
     });
   }
 
-  function rotateItems(container, items, batchSize, interval) {
-    let idx = 0;
-    function showBatch() {
-      const batch = [];
-      for (let i = 0; i < batchSize; i++) {
-        batch.push(items[(idx + i) % items.length]);
-      }
-      container.style.opacity = '0';
-      setTimeout(() => {
-        container.innerHTML = batch.map(s => `<span class="${container.dataset.tagClass}">${s}</span>`).join('');
-        container.style.opacity = '1';
-      }, 300);
-      idx = (idx + batchSize) % items.length;
-    }
-    showBatch();
-    setInterval(showBatch, interval);
-  }
-
   function renderSkills(skills) {
     const grid = document.getElementById('skills-grid');
     if (!grid) return;
     grid.innerHTML = '';
-    skills.forEach((group, i) => {
+    const groups = [];
+    skills.forEach(group => {
       const div = document.createElement('div');
       div.className = 'skill-group reveal';
-      const tags = document.createElement('div');
-      tags.className = 'skill-tags';
-      tags.dataset.tagClass = 'skill-tag';
-      tags.style.transition = 'opacity 0.3s ease';
-      div.innerHTML = `<h3>${group.category}</h3>`;
-      div.appendChild(tags);
+      div.innerHTML = `
+        <h3>${group.category}</h3>
+        <div class="skill-tags">
+          ${group.items.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+        </div>
+      `;
       grid.appendChild(div);
-      const BATCH = 6;
-      if (group.items.length > BATCH) {
-        rotateItems(tags, group.items, BATCH, 3000 + i * 500);
+      groups.push(div);
+    });
+
+    if (skills.length <= 3) return;
+
+    let idx = 0;
+    let timer = null;
+    let showAll = false;
+
+    function showBatch() {
+      groups.forEach((g, i) => {
+        g.style.opacity = '0';
+        g.style.display = 'none';
+      });
+      for (let i = 0; i < 3; i++) {
+        const g = groups[(idx + i) % groups.length];
+        g.style.display = '';
+        setTimeout(() => { g.style.opacity = '1'; }, 50);
+      }
+      idx = (idx + 3) % groups.length;
+    }
+
+    function startRotation() {
+      showBatch();
+      timer = setInterval(showBatch, 20000);
+    }
+
+    const btn = document.createElement('button');
+    btn.className = 'skills-toggle';
+    btn.textContent = 'Show all';
+    btn.addEventListener('click', () => {
+      showAll = !showAll;
+      if (showAll) {
+        clearInterval(timer);
+        groups.forEach(g => { g.style.display = ''; g.style.opacity = '1'; });
+        btn.textContent = 'Show less';
       } else {
-        tags.innerHTML = group.items.map(s => `<span class="skill-tag">${s}</span>`).join('');
+        idx = 0;
+        startRotation();
+        btn.textContent = 'Show all';
       }
     });
+    grid.parentNode.insertBefore(btn, grid.nextSibling);
+
+    groups.forEach(g => { g.style.transition = 'opacity 0.4s ease'; });
+    startRotation();
   }
 
   function renderHeroCard(data) {
@@ -180,9 +202,53 @@ const App = (() => {
     const toolsEl = document.getElementById('about-tools');
     if (toolsEl) {
       const allSkills = data.skills.flatMap(g => g.items);
-      toolsEl.dataset.tagClass = 'tool-tag';
-      toolsEl.style.transition = 'opacity 0.3s ease';
-      rotateItems(toolsEl, allSkills, 8, 3500);
+      const BATCH = 8;
+      if (allSkills.length <= BATCH) {
+        toolsEl.innerHTML = allSkills.map(s => `<span class="tool-tag">${s}</span>`).join('');
+        return;
+      }
+      toolsEl.style.transition = 'opacity 0.4s ease';
+      let idx = 0;
+      let timer = null;
+      let showAll = false;
+
+      function showToolBatch() {
+        toolsEl.style.opacity = '0';
+        setTimeout(() => {
+          const batch = [];
+          for (let i = 0; i < BATCH; i++) batch.push(allSkills[(idx + i) % allSkills.length]);
+          toolsEl.innerHTML = batch.map(s => `<span class="tool-tag">${s}</span>`).join('');
+          toolsEl.style.opacity = '1';
+        }, 300);
+        idx = (idx + BATCH) % allSkills.length;
+      }
+
+      function startToolRotation() {
+        showToolBatch();
+        timer = setInterval(showToolBatch, 20000);
+      }
+
+      const btn = document.createElement('button');
+      btn.className = 'tools-toggle';
+      btn.textContent = 'Show all';
+      btn.addEventListener('click', () => {
+        showAll = !showAll;
+        if (showAll) {
+          clearInterval(timer);
+          toolsEl.style.opacity = '0';
+          setTimeout(() => {
+            toolsEl.innerHTML = allSkills.map(s => `<span class="tool-tag">${s}</span>`).join('');
+            toolsEl.style.opacity = '1';
+          }, 300);
+          btn.textContent = 'Show less';
+        } else {
+          idx = 0;
+          startToolRotation();
+          btn.textContent = 'Show all';
+        }
+      });
+      toolsEl.parentNode.insertBefore(btn, toolsEl.nextSibling);
+      startToolRotation();
     }
   }
 
