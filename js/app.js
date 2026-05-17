@@ -194,9 +194,15 @@ const App = (() => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
-          tabs.forEach(t => t.classList.remove('active'));
+          tabs.forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+          });
           const activeTab = document.querySelector(`.tab[data-section="${id}"]`);
-          if (activeTab) activeTab.classList.add('active');
+          if (activeTab) {
+            activeTab.classList.add('active');
+            activeTab.setAttribute('aria-selected', 'true');
+          }
         }
       });
     }, {

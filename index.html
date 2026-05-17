@@ -18,11 +18,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" as="style">
 </head>
 <body>
+  <a class="skip-link" href="#hero">Skip to content</a>
 
   <!-- Loader -->
-  <div class="loader" id="loader">
+  <div class="loader" id="loader" role="status" aria-label="Loading">
     <span class="loader-text">DAGM.</span>
   </div>
 
@@ -31,7 +33,7 @@
 
     <!-- Fixed Left Sidebar -->
     <aside class="sidebar sidebar-left">
-      <a href="#" class="logo">DY</a>
+      <a href="#" class="logo" aria-label="Dagmawi Yoseph — Home">DY</a>
       <ul class="social-links" id="social-links"></ul>
     </aside>
 
@@ -50,27 +52,27 @@
             </span>
             <span class="browser-url-text">dagm.dev</span>
           </div>
-          <button class="theme-toggle-mini" id="theme-toggle">
-            <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-            <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <button class="theme-toggle-mini" id="theme-toggle" aria-label="Toggle dark mode">
+            <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
           </button>
         </div>
 
         <!-- Tab Navigation (folder tabs like img 4459) -->
-        <nav class="tab-bar" id="tab-bar">
-          <a href="#hero" class="tab active" data-section="hero">
+        <nav class="tab-bar" id="tab-bar" role="tablist" aria-label="Site sections">
+          <a href="#hero" class="tab active" data-section="hero" role="tab" aria-selected="true">
             <span class="tab-label">Home</span>
           </a>
-          <a href="#about" class="tab" data-section="about">
+          <a href="#about" class="tab" data-section="about" role="tab" aria-selected="false">
             <span class="tab-label">About</span>
           </a>
-          <a href="#projects" class="tab" data-section="projects">
+          <a href="#projects" class="tab" data-section="projects" role="tab" aria-selected="false">
             <span class="tab-label">Projects</span>
           </a>
-          <a href="#skills" class="tab" data-section="skills">
+          <a href="#skills" class="tab" data-section="skills" role="tab" aria-selected="false">
             <span class="tab-label">Skills</span>
           </a>
-          <a href="#contact" class="tab" data-section="contact">
+          <a href="#contact" class="tab" data-section="contact" role="tab" aria-selected="false">
             <span class="tab-label">Contact</span>
           </a>
         </nav>
@@ -268,10 +270,10 @@
   </div>
 
   <script>window.__GITHUB_CLIENT_ID__ = 'Ov23lirW4Y4BvIZp3qI0';</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/cms.js"></script>
-  <script src="js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/router.js" defer></script>
+  <script src="js/cms.js" defer></script>
+  <script src="js/app.js" defer></script>
 </body>
 </html>
