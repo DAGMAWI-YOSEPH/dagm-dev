@@ -304,17 +304,15 @@ button:focus:not(:focus-visible) { outline: none; }
   letter-spacing: -0.04em; margin-bottom: 20px;
   min-height: 1em;
 }
-.hero-role { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 20px; }
-.typing-highlight {
-  font-weight: 600; color: var(--text);
-  border-bottom: 2px solid var(--text); padding-bottom: 1px;
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; max-width: 480px;
 }
-.typing-cursor {
-  display: inline-block; width: 2px; height: 1.1em;
-  background: var(--text); margin-left: 2px; vertical-align: text-bottom;
-  animation: blink 1s step-end infinite;
+.hero-tag {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  padding: 4px 12px; background: var(--bg-elevated);
+  color: var(--text-secondary); border-radius: 999px;
+  border: 1px solid var(--border-light);
 }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 .hero-tagline {
   font-size: 1rem; color: var(--text-secondary);
   max-width: 420px; margin-bottom: 24px;
@@ -749,10 +747,7 @@ button:focus:not(:focus-visible) { outline: none; }
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; gap: 40px; }
   .hero-visual { justify-content: flex-start; }
-  .hero-card { max-width: 280px; }
-  .hero-card .card-img { aspect-ratio: 4 / 3; }
-  .hero-card .card-body { padding: 14px; font-size: 0.72rem; line-height: 1.8; }
-  .hero-card .card-skill-tag { font-size: 0.6rem; padding: 1px 7px; }
+  .hero-card { max-width: 340px; }
   .about-scrapbook { grid-template-columns: 1fr; }
   .scrapbook-bio { max-height: 7.2em; overflow: hidden; position: relative; transition: max-height 0.4s ease; }
   .scrapbook-bio.bio-expanded { max-height: 2000px; }
@@ -763,11 +758,6 @@ button:focus:not(:focus-visible) { outline: none; }
   .site { grid-template-columns: 1fr; }
   .sidebar-left { display: none; }
   .hero { padding: 60px 24px; min-height: auto; }
-  .hero-card { max-width: 220px; }
-  .hero-card .card-img { aspect-ratio: 1 / 1; }
-  .hero-card .card-body { padding: 12px; font-size: 0.65rem; line-height: 1.7; }
-  .hero-card .card-skill-tag { font-size: 0.55rem; padding: 1px 6px; }
-  .hero-card .card-skills { padding-left: 22px; gap: 4px; }
   .about { padding: 48px 24px; }
   .projects { padding: 48px 24px; }
   .skills { padding: 48px 24px; }
