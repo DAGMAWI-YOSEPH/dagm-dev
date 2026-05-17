@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAGM. Y — Creative Developer</title>
+  <meta name="description" content="Dagmawi Yoseph — freelance web developer specializing in fast, mobile-responsive, SEO-friendly websites.">
+  <meta name="author" content="Dagmawi Yoseph">
+  <link rel="canonical" href="https://dagm.dev">
+
+  <meta property="og:title" content="DAGM. Y — Creative Developer">
+  <meta property="og:description" content="Freelance web developer specializing in high-converting websites.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dagm.dev">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <span class="loader-text">DAGM.</span>
+  </div>
+
+  <!-- ========== PUBLIC SITE ========== -->
+  <div id="site" class="site">
+
+    <!-- Fixed Left Sidebar -->
+    <aside class="sidebar sidebar-left">
+      <a href="#" class="logo">DY</a>
+      <ul class="social-links" id="social-links"></ul>
+    </aside>
+
+    <!-- Fixed Right Sidebar -->
+    <aside class="sidebar sidebar-right">
+      <nav>
+        <ul class="vertical-nav">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#projects">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+      <!-- Section 1: Hero -->
+      <section class="hero" id="hero">
+        <div class="hero-content">
+          <p class="hero-greeting">Hello, I'm</p>
+          <h1 class="hero-name" id="hero-name"></h1>
+          <p class="hero-role">
+            A <span class="typing-highlight" id="typing-text">developer</span><span class="typing-cursor"></span>
+          </p>
+          <p class="hero-tagline" id="hero-tagline"></p>
+          <p class="hero-bio" id="hero-bio"></p>
+          <div class="hero-status">
+            <span class="status-dot"></span>
+            <span id="hero-status"></span>
+          </div>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View Work <span class="arrow">&rarr;</span></a>
+            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="card-titlebar">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+              <span class="card-filename">about.md</span>
+            </div>
+            <div class="card-body">
+              <p class="card-line"><span class="line-number">01</span> <span class="card-key">name:</span> <span id="card-name"></span></p>
+              <p class="card-line"><span class="line-number">02</span> <span class="card-key">location:</span> <span id="card-location"></span></p>
+              <p class="card-line"><span class="line-number">03</span> <span class="card-key">focus:</span> <span id="card-focus"></span></p>
+              <p class="card-line"><span class="line-number">04</span> <span class="card-key">status:</span> <span class="card-status">available</span></p>
+              <p class="card-line"><span class="line-number">05</span></p>
+              <div class="card-skills" id="card-skills"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Links -->
+      <div class="quick-links">
+        <a href="#projects" class="quick-link">
+          <span>Projects</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <a href="#skills" class="quick-link">
+          <span>Skills</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <a href="#contact" class="quick-link">
+          <span>Contact</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+        <button class="quick-link theme-toggle" id="theme-toggle">
+          <span id="theme-label">Dark</span>
+          <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg id="theme-icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+      </div>
+
+      <!-- Section 2: Projects -->
+      <section class="projects" id="projects">
+        <div class="section-header">
+          <h2 class="section-title">Projects</h2>
+          <span class="section-count" id="project-count"></span>
+        </div>
+        <div class="projects-grid" id="projects-grid"></div>
+      </section>
+
+      <!-- Skills -->
+      <section class="skills" id="skills">
+        <div class="section-header">
+          <h2 class="section-title">Skills</h2>
+        </div>
+        <div class="skills-grid" id="skills-grid"></div>
+      </section>
+
+      <!-- Contact -->
+      <section class="contact" id="contact">
+        <h2 class="contact-heading">Let's work together.</h2>
+        <p class="contact-sub" id="contact-specialization"></p>
+        <a class="contact-email" id="contact-email" href=""></a>
+      </section>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <p>Design by Dagm &mdash; &copy; <span id="footer-year"></span> All rights reserved.</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ========== ADMIN DASHBOARD ========== -->
+  <div id="admin" class="admin" style="display:none">
+    <div class="admin-bar">
+      <a href="#" class="admin-logo">DY <span class="admin-badge">CMS</span></a>
+      <div class="admin-bar-actions">
+        <span class="admin-user" id="admin-user"></span>
+        <button class="btn btn-ghost btn-sm" id="admin-logout">Logout</button>
+        <a href="#" class="btn btn-ghost btn-sm">Back to Site</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="admin-login" id="admin-login">
+        <div class="admin-login-card">
+          <h2>Dashboard</h2>
+          <p>Sign in with GitHub to manage your portfolio content.</p>
+          <button class="btn btn-primary" id="admin-github-login">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+            Sign in with GitHub
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-editor" id="admin-editor" style="display:none">
+        <div class="editor-section">
+          <h3>Meta</h3>
+          <div class="field-group">
+            <label>Name</label><input type="text" id="edit-name">
+            <label>Full Name</label><input type="text" id="edit-fullName">
+            <label>Location</label><input type="text" id="edit-location">
+            <label>Tagline</label><input type="text" id="edit-tagline">
+            <label>Bio</label><textarea id="edit-bio" rows="2"></textarea>
+            <label>Status</label><input type="text" id="edit-status">
+            <label>Specialization</label><input type="text" id="edit-specialization">
+            <label>Email</label><input type="email" id="edit-email">
+            <label>Typing Words (comma separated)</label><input type="text" id="edit-typing_words">
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Social Links</h3>
+          <div class="field-group">
+            <label>GitHub</label><input type="url" id="edit-social-github">
+            <label>Spotify</label><input type="url" id="edit-social-spotify">
+            <label>Email URL</label><input type="text" id="edit-social-email">
+          </div>
+        </div>
+
+        <div class="editor-section">
+          <h3>Projects</h3>
+          <div id="edit-projects"></div>
+          <button class="btn btn-ghost btn-sm" id="add-project">+ Add Project</button>
+        </div>
+
+        <div class="editor-section">
+          <h3>Skills</h3>
+          <div id="edit-skills"></div>
+        </div>
+
+        <div class="admin-save-bar">
+          <span class="save-status" id="save-status"></span>
+          <button class="btn btn-primary" id="admin-save">Commit & Push</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>window.__GITHUB_CLIENT_ID__ = 'Ov23lirW4Y4BvIZp3qI0';</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/cms.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
