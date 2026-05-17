@@ -144,7 +144,7 @@ const CMS = (() => {
     const tw = document.getElementById('edit-typing_words');
     if (tw) tw.value = (data.meta.typing_words || []).join(', ');
 
-    ['github', 'spotify', 'upwork', 'email'].forEach(s => {
+    ['github', 'spotify', 'letterboxd', 'upwork', 'email'].forEach(s => {
       const el = document.getElementById(`edit-social-${s}`);
       if (el) el.value = data.socials[s] || '';
     });
@@ -206,7 +206,7 @@ const CMS = (() => {
     const tw = document.getElementById('edit-typing_words');
     if (tw) data.meta.typing_words = tw.value.split(',').map(s => s.trim()).filter(Boolean);
 
-    ['github', 'spotify', 'upwork', 'email'].forEach(s => {
+    ['github', 'spotify', 'letterboxd', 'upwork', 'email'].forEach(s => {
       const el = document.getElementById(`edit-social-${s}`);
       if (el) data.socials[s] = el.value;
     });

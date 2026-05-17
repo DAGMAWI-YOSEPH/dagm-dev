@@ -13,11 +13,24 @@
       "designer",
       "builder",
       "freelancer"
+    ],
+    "hero_tags": [
+      "Top Rated Freelancer",
+      "WordPress Website",
+      "WooCommerce",
+      "WordPress Site Maintenance",
+      "Website Speed Optimization",
+      "WordPress e-Commerce",
+      "WordPress Landing Page",
+      "WordPress Themes Customization",
+      "Elementor",
+      "WordPress Migration"
     ]
   },
   "socials": {
     "github": "https://github.com/DAGMAWI-YOSEPH",
     "spotify": "https://open.spotify.com/user/31qyvs2kvcb3qrlmrekz6ywidtyq",
+    "letterboxd": "https://boxd.it/4SQtz",
     "upwork": "https://upwork.com/freelancers/~0121bc10815a02f18b",
     "email": "mailto:Dagmawi.yoseph@icloud.com"
   },
