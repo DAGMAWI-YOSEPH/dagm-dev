@@ -628,12 +628,17 @@ button { cursor: pointer; font-family: inherit; }
   font-size: 1rem; color: var(--text-secondary);
   max-width: 500px; margin: 0 auto 32px;
 }
-.contact-email {
-  font-family: var(--font-mono); font-size: 0.9rem; color: var(--text);
-  border-bottom: 1px solid var(--border); padding-bottom: 2px;
-  transition: border-color 0.2s;
+.contact-links {
+  display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
 }
-.contact-email:hover { border-color: var(--text); opacity: 1; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.9rem; color: var(--text);
+  padding: 12px 24px; border: 1px solid var(--border); border-radius: var(--radius-md);
+  transition: border-color 0.2s, background 0.2s;
+}
+.contact-link:hover { border-color: var(--text); background: var(--bg-card); opacity: 1; }
+.contact-link svg { flex-shrink: 0; }
 
 /* ============================================
    FOOTER
