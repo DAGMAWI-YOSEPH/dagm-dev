@@ -901,9 +901,8 @@ button:focus:not(:focus-visible) { outline: none; }
    ============================================ */
 
 @media (max-width: 1024px) {
-  .hero { grid-template-columns: 1fr; gap: 40px; }
-  .hero-visual { justify-content: flex-start; }
-  .hero-card { max-width: 340px; }
+  .hero { grid-template-columns: 1.2fr 1fr; gap: 24px; padding: 60px 40px; }
+  .hero-card { max-width: 300px; }
   .about-scrapbook { grid-template-columns: 1fr; }
   .scrapbook-bio { max-height: 7.2em; overflow: hidden; position: relative; transition: max-height 0.4s ease; }
   .scrapbook-bio.bio-expanded { max-height: 2000px; }
@@ -913,7 +912,7 @@ button:focus:not(:focus-visible) { outline: none; }
 @media (max-width: 768px) {
   .site { grid-template-columns: 1fr; }
   .sidebar-left { display: none; }
-  .hero { padding: 60px 24px; min-height: auto; }
+  .hero { grid-template-columns: 1fr; padding: 60px 24px; min-height: auto; gap: 32px; }
   .about { padding: 48px 24px; }
   .projects { padding: 48px 24px; }
   .skills { padding: 48px 24px; }
