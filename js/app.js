@@ -367,12 +367,29 @@ const App = (() => {
 
   function initTabs() {
     const tabs = document.querySelectorAll('.tab');
-    const sections = ['hero', 'about', 'projects', 'skills', 'ideas', 'contact'];
+    const sections = ['hero', 'about', 'projects', 'skills', 'contact'];
 
     tabs.forEach(tab => {
       tab.addEventListener('click', (e) => {
         e.preventDefault();
         const target = tab.dataset.section;
+        if (target === 'ideas') {
+          window.location.hash = '#ideas';
+          return;
+        }
+        // If on ideas page, go back to main site first
+        if (window.location.hash.startsWith('#ideas')) {
+          window.location.hash = '#';
+          setTimeout(() => {
+            const section = document.getElementById(target);
+            if (section) {
+              const chrome = document.querySelector('.browser-chrome');
+              const offset = chrome ? chrome.offsetHeight : 0;
+              window.scrollTo({ top: section.offsetTop - offset, behavior: 'smooth' });
+            }
+          }, 100);
+          return;
+        }
         const section = document.getElementById(target);
         if (section) {
           const chrome = document.querySelector('.browser-chrome');
@@ -490,13 +507,34 @@ const App = (() => {
     Router.register('#', () => {
       document.getElementById('site').style.display = 'grid';
       document.getElementById('admin').style.display = 'none';
+      document.getElementById('ideas-page').style.display = 'none';
     }, () => {
       document.getElementById('site').style.display = 'none';
+    });
+
+    Router.register('#ideas', () => {
+      document.getElementById('ideas-page').style.display = 'block';
+      document.getElementById('site').style.display = 'none';
+      document.getElementById('admin').style.display = 'none';
+      // Highlight Ideas tab
+      document.querySelectorAll('.tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      const ideasTab = document.querySelector('.tab[data-section="ideas"]');
+      if (ideasTab) {
+        ideasTab.classList.add('active');
+        ideasTab.setAttribute('aria-selected', 'true');
+      }
+      handleIdeasRoute();
+    }, () => {
+      document.getElementById('ideas-page').style.display = 'none';
     });
 
     Router.register('#admin', () => {
       document.getElementById('admin').style.display = 'block';
       document.getElementById('site').style.display = 'none';
+      document.getElementById('ideas-page').style.display = 'none';
       CMS.showDashboard();
     }, () => {
       document.getElementById('admin').style.display = 'none';

@@ -8,7 +8,9 @@ const Router = (() => {
 
   function navigate() {
     const hash = window.location.hash || '#';
-    const route = hash === '#admin' ? '#admin' : '#';
+    const route = hash === '#admin' ? '#admin'
+               : hash.startsWith('#ideas') ? '#ideas'
+               : '#';
 
     if (route !== currentRoute) {
       if (currentRoute && routes[currentRoute]) {
@@ -20,7 +22,6 @@ const Router = (() => {
       currentRoute = route;
     }
 
-    // Dispatch ideas routing within the public site
     window.dispatchEvent(new CustomEvent('routechange', { detail: { hash } }));
   }
 
