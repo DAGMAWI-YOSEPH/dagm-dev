@@ -507,15 +507,15 @@ const App = (() => {
     Router.register('#', () => {
       document.getElementById('site').style.display = 'grid';
       document.getElementById('admin').style.display = 'none';
-      document.getElementById('ideas-page').style.display = 'none';
     }, () => {
       document.getElementById('site').style.display = 'none';
     });
 
     Router.register('#ideas', () => {
-      document.getElementById('ideas-page').style.display = 'block';
-      document.getElementById('site').style.display = 'none';
+      document.getElementById('site').style.display = 'grid';
       document.getElementById('admin').style.display = 'none';
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('ideas-page').style.display = '';
       // Highlight Ideas tab
       document.querySelectorAll('.tab').forEach(t => {
         t.classList.remove('active');
@@ -526,15 +526,16 @@ const App = (() => {
         ideasTab.classList.add('active');
         ideasTab.setAttribute('aria-selected', 'true');
       }
+      window.scrollTo(0, 0);
       handleIdeasRoute();
     }, () => {
+      document.getElementById('main-content').style.display = '';
       document.getElementById('ideas-page').style.display = 'none';
     });
 
     Router.register('#admin', () => {
       document.getElementById('admin').style.display = 'block';
       document.getElementById('site').style.display = 'none';
-      document.getElementById('ideas-page').style.display = 'none';
       CMS.showDashboard();
     }, () => {
       document.getElementById('admin').style.display = 'none';

@@ -118,6 +118,32 @@
       <!-- Page Content -->
       <div class="browser-body">
 
+        <!-- Ideas Page (separate tab content) -->
+        <div id="ideas-page" style="display:none">
+          <section class="ideas">
+            <div class="ideas-list-view" id="ideas-list-view">
+              <div class="section-header">
+                <h2 class="section-title">Ideas</h2>
+                <span class="section-count" id="ideas-count"></span>
+              </div>
+              <div class="ideas-grid" id="ideas-grid"></div>
+              <p class="ideas-empty" id="ideas-empty" style="display:none">No ideas yet. Stay tuned.</p>
+            </div>
+            <div class="ideas-post-view" id="ideas-post-view" style="display:none">
+              <button class="ideas-back" id="ideas-back">&larr; Back to Ideas</button>
+              <article class="ideas-article">
+                <time class="ideas-article-date" id="ideas-article-date"></time>
+                <h1 class="ideas-article-title" id="ideas-article-title"></h1>
+                <div class="ideas-article-cover" id="ideas-article-cover"></div>
+                <div class="ideas-article-body" id="ideas-article-body"></div>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <!-- Main Site Content -->
+        <div id="main-content">
+
         <!-- Section 1: Hero (content hardcoded for instant LCP) -->
         <section class="hero" id="hero">
           <div class="hero-content">
@@ -235,31 +261,9 @@
         <footer class="site-footer">
           <p>Design by Dagm &mdash; &copy; <span id="footer-year">2026</span> All rights reserved.</p>
         </footer>
+        </div><!-- /main-content -->
       </div>
     </main>
-  </div>
-
-  <!-- ========== IDEAS PAGE ========== -->
-  <div id="ideas-page" class="ideas-page" style="display:none">
-    <section class="ideas">
-      <div class="ideas-list-view" id="ideas-list-view">
-        <div class="section-header">
-          <h2 class="section-title">Ideas</h2>
-          <span class="section-count" id="ideas-count"></span>
-        </div>
-        <div class="ideas-grid" id="ideas-grid"></div>
-        <p class="ideas-empty" id="ideas-empty" style="display:none">No ideas yet. Stay tuned.</p>
-      </div>
-      <div class="ideas-post-view" id="ideas-post-view" style="display:none">
-        <button class="ideas-back" id="ideas-back">&larr; Back to Ideas</button>
-        <article class="ideas-article">
-          <time class="ideas-article-date" id="ideas-article-date"></time>
-          <h1 class="ideas-article-title" id="ideas-article-title"></h1>
-          <div class="ideas-article-cover" id="ideas-article-cover"></div>
-          <div class="ideas-article-body" id="ideas-article-body"></div>
-        </article>
-      </div>
-    </section>
   </div>
 
   <!-- ========== ADMIN DASHBOARD ========== -->
