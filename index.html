@@ -106,11 +106,11 @@
           <a href="#skills" class="tab" data-section="skills" role="tab" aria-selected="false">
             <span class="tab-label">Skills</span>
           </a>
-          <a href="#ideas" class="tab" data-section="ideas" role="tab" aria-selected="false">
-            <span class="tab-label">Ideas</span>
-          </a>
           <a href="#contact" class="tab" data-section="contact" role="tab" aria-selected="false">
             <span class="tab-label">Contact</span>
+          </a>
+          <a href="#ideas" class="tab" data-section="ideas" role="tab" aria-selected="false">
+            <span class="tab-label">Ideas</span>
           </a>
         </nav>
       </div>
@@ -215,28 +215,7 @@
           <div class="skills-grid" id="skills-grid"></div>
         </section>
 
-        <!-- Section 5: Ideas -->
-        <section class="ideas" id="ideas">
-          <div class="ideas-list-view" id="ideas-list-view">
-            <div class="section-header">
-              <h2 class="section-title">Ideas</h2>
-              <span class="section-count" id="ideas-count"></span>
-            </div>
-            <div class="ideas-grid" id="ideas-grid"></div>
-            <p class="ideas-empty" id="ideas-empty" style="display:none">No ideas yet. Stay tuned.</p>
-          </div>
-          <div class="ideas-post-view" id="ideas-post-view" style="display:none">
-            <button class="ideas-back" id="ideas-back">&larr; Back to Ideas</button>
-            <article class="ideas-article">
-              <time class="ideas-article-date" id="ideas-article-date"></time>
-              <h1 class="ideas-article-title" id="ideas-article-title"></h1>
-              <div class="ideas-article-cover" id="ideas-article-cover"></div>
-              <div class="ideas-article-body" id="ideas-article-body"></div>
-            </article>
-          </div>
-        </section>
-
-        <!-- Section 6: Contact -->
+        <!-- Section 5: Contact -->
         <section class="contact" id="contact">
           <h2 class="contact-heading">Let's work together.</h2>
           <p class="contact-sub" id="contact-specialization">Specializing in fast, mobile-responsive, SEO-friendly websites that drive results.</p>
@@ -258,6 +237,29 @@
         </footer>
       </div>
     </main>
+  </div>
+
+  <!-- ========== IDEAS PAGE ========== -->
+  <div id="ideas-page" class="ideas-page" style="display:none">
+    <section class="ideas">
+      <div class="ideas-list-view" id="ideas-list-view">
+        <div class="section-header">
+          <h2 class="section-title">Ideas</h2>
+          <span class="section-count" id="ideas-count"></span>
+        </div>
+        <div class="ideas-grid" id="ideas-grid"></div>
+        <p class="ideas-empty" id="ideas-empty" style="display:none">No ideas yet. Stay tuned.</p>
+      </div>
+      <div class="ideas-post-view" id="ideas-post-view" style="display:none">
+        <button class="ideas-back" id="ideas-back">&larr; Back to Ideas</button>
+        <article class="ideas-article">
+          <time class="ideas-article-date" id="ideas-article-date"></time>
+          <h1 class="ideas-article-title" id="ideas-article-title"></h1>
+          <div class="ideas-article-cover" id="ideas-article-cover"></div>
+          <div class="ideas-article-body" id="ideas-article-body"></div>
+        </article>
+      </div>
+    </section>
   </div>
 
   <!-- ========== ADMIN DASHBOARD ========== -->
