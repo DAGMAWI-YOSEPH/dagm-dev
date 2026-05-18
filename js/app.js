@@ -252,6 +252,90 @@ const App = (() => {
     }
   }
 
+  // --- Ideas ---
+
+  let ideasData = [];
+
+  function renderIdeasList(ideas) {
+    const grid = document.getElementById('ideas-grid');
+    const count = document.getElementById('ideas-count');
+    const empty = document.getElementById('ideas-empty');
+    if (!grid) return;
+
+    const published = (ideas || []).filter(p => p.status === 'published')
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    if (count) count.textContent = `${published.length} posts`;
+    grid.innerHTML = '';
+
+    if (!published.length) {
+      if (empty) empty.style.display = '';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+
+    published.forEach(idea => {
+      const card = document.createElement('div');
+      card.className = 'ideas-card reveal-line';
+      card.innerHTML = `
+        <div class="ideas-card-content">
+          <span class="ideas-card-date">${new Date(idea.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          <h3 class="ideas-card-title">${idea.title}</h3>
+          <p class="ideas-card-excerpt">${idea.excerpt || ''}</p>
+        </div>
+        ${idea.coverImage ? `<div class="ideas-card-cover"><img src="${idea.coverImage}" alt="${idea.title}"></div>` : ''}
+      `;
+      card.addEventListener('click', () => {
+        window.location.hash = '#ideas/' + idea.id;
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  function renderIdeasPost(slug) {
+    const listView = document.getElementById('ideas-list-view');
+    const postView = document.getElementById('ideas-post-view');
+    const idea = ideasData.find(p => p.id === slug && p.status === 'published');
+
+    if (!idea) {
+      listView.style.display = '';
+      postView.style.display = 'none';
+      return;
+    }
+
+    listView.style.display = 'none';
+    postView.style.display = '';
+
+    document.getElementById('ideas-article-date').textContent =
+      new Date(idea.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('ideas-article-title').textContent = idea.title;
+    document.getElementById('ideas-article-body').innerHTML = idea.body || '';
+
+    const coverEl = document.getElementById('ideas-article-cover');
+    coverEl.innerHTML = idea.coverImage ? `<img src="${idea.coverImage}" alt="${idea.title}">` : '';
+
+    document.getElementById('ideas-back').onclick = () => {
+      window.location.hash = '#ideas';
+    };
+
+    window.scrollTo({ top: document.getElementById('ideas').offsetTop, behavior: 'smooth' });
+  }
+
+  function handleIdeasRoute() {
+    const hash = window.location.hash;
+    const listView = document.getElementById('ideas-list-view');
+    const postView = document.getElementById('ideas-post-view');
+    if (!listView) return;
+
+    if (hash.startsWith('#ideas/')) {
+      const slug = hash.replace('#ideas/', '');
+      renderIdeasPost(slug);
+    } else {
+      listView.style.display = '';
+      postView.style.display = 'none';
+    }
+  }
+
   function populateSite(data) {
     document.getElementById('hero-name').textContent = data.meta.name;
     document.getElementById('hero-tagline').textContent = data.meta.tagline;
@@ -267,18 +351,23 @@ const App = (() => {
     typingWords = data.meta.typing_words || [];
     typingEl = document.getElementById('typing-text');
 
+    ideasData = data.ideas || [];
+
     renderSocials(data.socials);
     renderProjects(data.projects);
     renderSkills(data.skills);
     renderHeroCard(data);
     renderAbout(data);
+    renderIdeasList(ideasData);
+
+    window.addEventListener('routechange', handleIdeasRoute);
   }
 
   // --- Tab Navigation ---
 
   function initTabs() {
     const tabs = document.querySelectorAll('.tab');
-    const sections = ['hero', 'about', 'projects', 'skills', 'contact'];
+    const sections = ['hero', 'about', 'projects', 'skills', 'ideas', 'contact'];
 
     tabs.forEach(tab => {
       tab.addEventListener('click', (e) => {

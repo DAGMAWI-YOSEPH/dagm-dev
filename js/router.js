@@ -10,17 +10,18 @@ const Router = (() => {
     const hash = window.location.hash || '#';
     const route = hash === '#admin' ? '#admin' : '#';
 
-    if (route === currentRoute) return;
-
-    if (currentRoute && routes[currentRoute]) {
-      routes[currentRoute].hide();
+    if (route !== currentRoute) {
+      if (currentRoute && routes[currentRoute]) {
+        routes[currentRoute].hide();
+      }
+      if (routes[route]) {
+        routes[route].show();
+      }
+      currentRoute = route;
     }
 
-    if (routes[route]) {
-      routes[route].show();
-    }
-
-    currentRoute = route;
+    // Dispatch ideas routing within the public site
+    window.dispatchEvent(new CustomEvent('routechange', { detail: { hash } }));
   }
 
   function init() {

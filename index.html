@@ -106,6 +106,9 @@
           <a href="#skills" class="tab" data-section="skills" role="tab" aria-selected="false">
             <span class="tab-label">Skills</span>
           </a>
+          <a href="#ideas" class="tab" data-section="ideas" role="tab" aria-selected="false">
+            <span class="tab-label">Ideas</span>
+          </a>
           <a href="#contact" class="tab" data-section="contact" role="tab" aria-selected="false">
             <span class="tab-label">Contact</span>
           </a>
@@ -212,7 +215,28 @@
           <div class="skills-grid" id="skills-grid"></div>
         </section>
 
-        <!-- Section 5: Contact -->
+        <!-- Section 5: Ideas -->
+        <section class="ideas" id="ideas">
+          <div class="ideas-list-view" id="ideas-list-view">
+            <div class="section-header">
+              <h2 class="section-title">Ideas</h2>
+              <span class="section-count" id="ideas-count"></span>
+            </div>
+            <div class="ideas-grid" id="ideas-grid"></div>
+            <p class="ideas-empty" id="ideas-empty" style="display:none">No ideas yet. Stay tuned.</p>
+          </div>
+          <div class="ideas-post-view" id="ideas-post-view" style="display:none">
+            <button class="ideas-back" id="ideas-back">&larr; Back to Ideas</button>
+            <article class="ideas-article">
+              <time class="ideas-article-date" id="ideas-article-date"></time>
+              <h1 class="ideas-article-title" id="ideas-article-title"></h1>
+              <div class="ideas-article-cover" id="ideas-article-cover"></div>
+              <div class="ideas-article-body" id="ideas-article-body"></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Section 6: Contact -->
         <section class="contact" id="contact">
           <h2 class="contact-heading">Let's work together.</h2>
           <p class="contact-sub" id="contact-specialization">Specializing in fast, mobile-responsive, SEO-friendly websites that drive results.</p>
@@ -289,6 +313,56 @@
         <div class="editor-section">
           <h3>Skills</h3>
           <div id="edit-skills"></div>
+        </div>
+        <div class="editor-section">
+          <h3>Ideas / Posts</h3>
+          <div id="ideas-manager">
+            <div class="ideas-admin-list" id="ideas-admin-list"></div>
+            <button class="btn btn-ghost btn-sm" id="add-idea">+ New Post</button>
+          </div>
+          <div class="ideas-editor" id="ideas-editor" style="display:none">
+            <button class="btn btn-ghost btn-sm" id="ideas-editor-back">&larr; Back to Posts</button>
+            <div class="field-group" style="margin-top:16px">
+              <label>Title</label>
+              <input type="text" id="edit-idea-title" placeholder="Post title...">
+              <label>Cover Image</label>
+              <div class="idea-cover-upload">
+                <div class="idea-cover-preview" id="idea-cover-preview"></div>
+                <label class="btn btn-ghost btn-sm idea-upload-btn">
+                  Upload Cover
+                  <input type="file" id="idea-cover-file" accept="image/*" style="display:none">
+                </label>
+                <button class="btn-icon idea-cover-remove" id="idea-cover-remove" style="display:none">&times;</button>
+              </div>
+              <label>Status</label>
+              <select id="edit-idea-status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+              <label>Body</label>
+              <div class="idea-toolbar" id="idea-toolbar">
+                <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
+                <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
+                <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
+                <button type="button" data-cmd="insertUnorderedList" title="Bullet List">&#8226;</button>
+                <button type="button" data-cmd="insertOrderedList" title="Numbered List">1.</button>
+                <button type="button" data-cmd="formatBlock" data-val="h2" title="Heading">H2</button>
+                <button type="button" data-cmd="formatBlock" data-val="h3" title="Subheading">H3</button>
+                <button type="button" data-cmd="formatBlock" data-val="blockquote" title="Quote">&ldquo;</button>
+                <span class="idea-toolbar-divider"></span>
+                <label class="idea-toolbar-imgbtn" title="Insert Image">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                  <input type="file" id="idea-body-image" accept="image/*" style="display:none">
+                </label>
+              </div>
+              <div class="idea-body-editor" id="idea-body-editor" contenteditable="true"></div>
+              <label>Excerpt <span style="color:var(--text-muted);font-weight:400">(optional, auto-generated if empty)</span></label>
+              <input type="text" id="edit-idea-excerpt" placeholder="Short preview text...">
+            </div>
+            <div class="ideas-editor-actions">
+              <button class="btn btn-ghost btn-sm" id="idea-delete" style="color:var(--dot-red)">Delete Post</button>
+            </div>
+          </div>
         </div>
         <div class="admin-save-bar">
           <span class="save-status" id="save-status"></span>
