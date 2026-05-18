@@ -363,6 +363,14 @@ const App = (() => {
     window.addEventListener('routechange', handleIdeasRoute);
   }
 
+  // --- URL Bar ---
+
+  function updateUrlBar(section) {
+    const urlText = document.querySelector('.browser-url-text');
+    if (!urlText) return;
+    urlText.textContent = section === 'hero' || !section ? 'dagm.dev' : section + '.dagm.dev';
+  }
+
   // --- Tab Navigation ---
 
   function initTabs() {
@@ -413,6 +421,7 @@ const App = (() => {
             activeTab.classList.add('active');
             activeTab.setAttribute('aria-selected', 'true');
           }
+          updateUrlBar(id);
         }
       });
     }, {
@@ -527,10 +536,12 @@ const App = (() => {
         ideasTab.setAttribute('aria-selected', 'true');
       }
       window.scrollTo(0, 0);
+      updateUrlBar('ideas');
       handleIdeasRoute();
     }, () => {
       document.getElementById('main-content').style.display = '';
       document.getElementById('ideas-page').style.display = 'none';
+      updateUrlBar('hero');
     });
 
     Router.register('#admin', () => {
