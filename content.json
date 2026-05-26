@@ -30,16 +30,16 @@
   },
   "projects": [
     {
+      "id": "jb-dondolo",
+      "title": "JB Dondolo",
+      "url": "https://jbdondolo.org",
+      "status": "ongoing"
+    },
+    {
       "id": "heron-dance",
       "title": "Heron Dance",
       "url": "https://herondance.org",
       "status": "2026"
-    },
-    {
-      "id": "jbdondolo-org",
-      "title": "JBDondolo.org",
-      "url": "https://jbdondolo.org",
-      "status": "ongoing"
     },
     {
       "id": "lonestar-peptides",
