@@ -9,7 +9,6 @@ const Router = (() => {
   function navigate() {
     const hash = window.location.hash || '#';
     const route = hash === '#admin' ? '#admin'
-               : hash.startsWith('#ideas') ? '#ideas'
                : '#';
 
     if (route !== currentRoute) {
