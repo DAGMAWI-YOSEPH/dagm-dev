@@ -1,3 +1,186 @@
+/* Project preview: a browser-window mockup that auto-scrolls a full-page
+   screenshot of the build, with the stack used underneath. */
+const Preview = (() => {
+  const PASS_SECONDS = 42;  // aim for one top-to-bottom pass in this long
+  const MIN_SPEED = 22;     // …but never crawl or blur past (px per second)
+  const MAX_SPEED = 130;
+  const END_HOLD = 1300;    // ms paused at the top and bottom of the shot
+  const IDLE_RESUME = 2200; // ms of no input before auto-scroll picks up again
+
+  let overlay, dialog, viewport, shot, fallback, playBtn, iconPlay, iconPause;
+  let raf = null, lastTs = 0, holdUntil = 0, dir = 1, speed = 40;
+  let autoOn = true, nudged = false, idleTimer = null;
+  let lastFocus = null;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function el(id) { return document.getElementById(id); }
+
+  function tick(ts) {
+    raf = requestAnimationFrame(tick);
+    const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.1) : 0;
+    lastTs = ts;
+    if (!autoOn || nudged || ts < holdUntil) return;
+
+    const max = viewport.scrollHeight - viewport.clientHeight;
+    if (max < 8) return;
+
+    let next = viewport.scrollTop + dir * speed * dt;
+    if (next >= max) { next = max; dir = -1; holdUntil = ts + END_HOLD; }
+    else if (next <= 0) { next = 0; dir = 1; holdUntil = ts + END_HOLD; }
+    viewport.scrollTop = next;
+  }
+
+  // Long pages would take minutes at a fixed rate, so pace by page length instead.
+  function measure() {
+    const dist = viewport.scrollHeight - viewport.clientHeight;
+    speed = Math.min(MAX_SPEED, Math.max(MIN_SPEED, dist / PASS_SECONDS));
+  }
+
+  function startLoop() {
+    measure();
+    if (raf || reduceMotion) return;
+    lastTs = 0;
+    holdUntil = performance.now() + 700;
+    raf = requestAnimationFrame(tick);
+  }
+
+  function stopLoop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = null;
+    lastTs = 0;
+  }
+
+  function setAuto(on) {
+    autoOn = on;
+    iconPause.style.display = on ? 'block' : 'none';
+    iconPlay.style.display = on ? 'none' : 'block';
+    playBtn.setAttribute('aria-pressed', String(on));
+    playBtn.setAttribute('aria-label', on ? 'Pause auto-scroll' : 'Resume auto-scroll');
+  }
+
+  // Any manual input inside the window suspends auto-scroll until the user settles.
+  function nudge() {
+    nudged = true;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { nudged = false; lastTs = 0; }, IDLE_RESUME);
+  }
+
+  function renderChips(stack) {
+    const chips = el('pv-chips');
+    chips.innerHTML = '';
+    if (!stack || !stack.length) {
+      const p = document.createElement('span');
+      p.className = 'pv-chips-empty';
+      p.textContent = 'Not documented yet.';
+      chips.appendChild(p);
+      return;
+    }
+    stack.forEach(item => {
+      const span = document.createElement('span');
+      span.className = 'pv-chip';
+      span.textContent = item;
+      chips.appendChild(span);
+    });
+  }
+
+  function hostOf(url) {
+    try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
+  }
+
+  function open(project) {
+    if (!overlay) return;
+    lastFocus = document.activeElement;
+
+    el('pv-title').textContent = project.title;
+    el('pv-status').textContent = project.status || '';
+    el('pv-domain').textContent = hostOf(project.url);
+    el('pv-window-url-text').textContent = hostOf(project.url);
+    const visit = el('pv-visit');
+    visit.href = project.url;
+    renderChips(project.stack);
+
+    viewport.scrollTop = 0;
+    dir = 1;
+    setAuto(!reduceMotion);
+    nudged = false;
+
+    if (project.shot) {
+      fallback.hidden = true;
+      shot.hidden = false;
+      shot.alt = `Full-page screenshot of ${project.title}`;
+      shot.src = project.shot;
+      playBtn.style.display = '';
+      if (shot.complete) startLoop();
+      else shot.addEventListener('load', startLoop, { once: true });
+      shot.addEventListener('error', () => {
+        shot.hidden = true;
+        fallback.hidden = false;
+        stopLoop();
+      }, { once: true });
+    } else {
+      shot.hidden = true;
+      shot.removeAttribute('src');
+      fallback.hidden = false;
+      playBtn.style.display = 'none';
+      stopLoop();
+    }
+
+    overlay.hidden = false;
+    document.body.classList.add('pv-locked');
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
+    el('pv-close').focus();
+  }
+
+  function close() {
+    if (!overlay || overlay.hidden) return;
+    stopLoop();
+    clearTimeout(idleTimer);
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('pv-locked');
+    const finish = () => {
+      overlay.hidden = true;
+      shot.removeAttribute('src');
+    };
+    setTimeout(finish, reduceMotion ? 0 : 250);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function init() {
+    overlay = el('project-viewer');
+    if (!overlay) return;
+    dialog = overlay.querySelector('.pv-dialog');
+    viewport = el('pv-viewport');
+    shot = el('pv-shot');
+    fallback = el('pv-fallback');
+    playBtn = el('pv-play');
+    iconPlay = el('pv-icon-play');
+    iconPause = el('pv-icon-pause');
+
+    el('pv-close').addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.hidden) close();
+    });
+
+    playBtn.addEventListener('click', () => {
+      setAuto(!autoOn);
+      if (autoOn) { nudged = false; lastTs = 0; startLoop(); }
+    });
+
+    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
+      viewport.addEventListener(evt, nudge, { passive: true });
+    });
+    // Hover pauses — but keyed off movement, so a cursor that merely happens to be
+    // under the dialog when it opens doesn't freeze the scroll.
+    viewport.addEventListener('mousemove', () => { nudged = true; clearTimeout(idleTimer); }, { passive: true });
+    viewport.addEventListener('mouseleave', nudge);
+
+    window.addEventListener('resize', () => { if (!overlay.hidden) measure(); });
+  }
+
+  return { init, open, close };
+})();
+
 const App = (() => {
   const SOCIAL_ICONS = {
     github: '<svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>',
@@ -95,9 +278,16 @@ const App = (() => {
       row.innerHTML = `
         <span class="project-num">${String(i + 1).padStart(2, '0')}</span>
         <span class="project-title">${p.title}</span>
+        <span class="project-preview-hint">Preview</span>
         <span class="project-status">${p.status}</span>
         <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
       `;
+      // Plain clicks open the preview; modified clicks keep the normal link behaviour.
+      row.addEventListener('click', (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        Preview.open(p);
+      });
       grid.appendChild(row);
     });
   }
@@ -423,6 +613,7 @@ const App = (() => {
     });
 
     CMS.initDashboard();
+    Preview.init();
     Router.init();
 
     const data = await CMS.fetchContent();

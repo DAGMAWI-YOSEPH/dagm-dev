@@ -384,6 +384,50 @@
     </div>
   </div>
 
+  <!-- ========== PROJECT PREVIEW ========== -->
+  <div class="pv-overlay" id="project-viewer" hidden>
+    <div class="pv-dialog" role="dialog" aria-modal="true" aria-labelledby="pv-title">
+      <header class="pv-head">
+        <div class="pv-head-text">
+          <h3 class="pv-title" id="pv-title"></h3>
+          <p class="pv-meta"><span class="pv-status" id="pv-status"></span><span class="pv-domain" id="pv-domain"></span></p>
+        </div>
+        <button class="pv-close" id="pv-close" aria-label="Close preview">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </header>
+
+      <div class="pv-window">
+        <div class="pv-window-bar">
+          <div class="browser-dots">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <div class="pv-window-url"><span id="pv-window-url-text"></span></div>
+          <button class="pv-play" id="pv-play" aria-label="Pause auto-scroll" aria-pressed="true">
+            <svg id="pv-icon-pause" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+            <svg id="pv-icon-play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M8 5l11 7-11 7z"/></svg>
+          </button>
+        </div>
+        <div class="pv-viewport" id="pv-viewport" tabindex="0" aria-label="Scrollable site preview">
+          <img class="pv-shot" id="pv-shot" alt="" decoding="async">
+          <div class="pv-fallback" id="pv-fallback" hidden>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18 15 15 0 010-18"/></svg>
+            <p>No preview captured for this build.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pv-stack">
+        <h4 class="pv-stack-title">Stack</h4>
+        <div class="pv-chips" id="pv-chips"></div>
+      </div>
+
+      <footer class="pv-foot">
+        <a class="btn btn-primary btn-sm" id="pv-visit" href="#" target="_blank" rel="noopener">Visit site <span class="arrow">&rarr;</span></a>
+      </footer>
+    </div>
+  </div>
+
   <script>window.__GITHUB_CLIENT_ID__ = 'Ov23lirW4Y4BvIZp3qI0';</script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>

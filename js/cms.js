@@ -8,7 +8,19 @@ const CMS = (() => {
   let fileSha = null;
   let contentData = null;
 
+  const IS_LOCAL = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+
   async function fetchContent() {
+    // Locally, edit content.json on disk and reload — no round trip to GitHub.
+    if (IS_LOCAL) {
+      try {
+        const res = await fetch('/content.json', { cache: 'no-store' });
+        contentData = await res.json();
+        return contentData;
+      } catch (err) {
+        console.error('Local content fetch failed:', err);
+      }
+    }
     try {
       const res = await fetch(
         `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`
@@ -153,19 +165,29 @@ const CMS = (() => {
     renderSkillsEditor(data.skills);
   }
 
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
   function renderProjectEditor(projects) {
     const container = document.getElementById('edit-projects');
     container.innerHTML = '';
     projects.forEach((p, i) => {
-      const row = document.createElement('div');
-      row.className = 'project-edit-row';
-      row.innerHTML = `
-        <input type="text" value="${p.title}" data-field="title" placeholder="Title">
-        <input type="url" value="${p.url}" data-field="url" placeholder="URL">
-        <input type="text" value="${p.status}" data-field="status" placeholder="Status" style="max-width:100px">
-        <button class="btn-icon" data-remove="${i}">&times;</button>
+      const item = document.createElement('div');
+      item.className = 'project-edit-item';
+      item.innerHTML = `
+        <div class="project-edit-row">
+          <input type="text" value="${esc(p.title)}" data-field="title" placeholder="Title">
+          <input type="url" value="${esc(p.url)}" data-field="url" placeholder="URL">
+          <input type="text" value="${esc(p.status)}" data-field="status" placeholder="Status" style="max-width:100px">
+          <button class="btn-icon" data-remove="${i}">&times;</button>
+        </div>
+        <div class="project-edit-row project-edit-extra">
+          <input type="text" value="${esc(p.shot)}" data-field="shot" placeholder="Preview image (img/projects/name.jpg)">
+          <input type="text" value="${esc((p.stack || []).join(', '))}" data-field="stack" placeholder="Stack (comma separated)">
+        </div>
       `;
-      container.appendChild(row);
+      container.appendChild(item);
     });
 
     container.querySelectorAll('[data-remove]').forEach(btn => {
@@ -211,13 +233,22 @@ const CMS = (() => {
       if (el) data.socials[s] = el.value;
     });
 
-    const projectRows = document.querySelectorAll('#edit-projects .project-edit-row');
-    data.projects = Array.from(projectRows).map((row, i) => {
-      const title = row.querySelector('[data-field="title"]').value;
-      const url = row.querySelector('[data-field="url"]').value;
-      const status = row.querySelector('[data-field="status"]').value;
+    const projectRows = document.querySelectorAll('#edit-projects .project-edit-item');
+    data.projects = Array.from(projectRows).map((row) => {
+      const val = (field) => {
+        const el = row.querySelector(`[data-field="${field}"]`);
+        return el ? el.value.trim() : '';
+      };
+      const title = val('title');
       const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      return { id, title, url, status };
+      return {
+        id,
+        title,
+        url: val('url'),
+        status: val('status'),
+        shot: val('shot'),
+        stack: val('stack').split(',').map(s => s.trim()).filter(Boolean)
+      };
     });
 
     const skillInputs = document.querySelectorAll('#edit-skills input[data-category]');
@@ -242,7 +273,7 @@ const CMS = (() => {
     if (addProjectBtn) {
       addProjectBtn.addEventListener('click', () => {
         const data = collectEditorData();
-        data.projects.push({ id: '', title: '', url: '', status: new Date().getFullYear().toString() });
+        data.projects.push({ id: '', title: '', url: '', status: new Date().getFullYear().toString(), shot: '', stack: [] });
         renderProjectEditor(data.projects);
       });
     }
