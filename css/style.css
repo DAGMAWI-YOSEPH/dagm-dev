@@ -641,7 +641,7 @@ button:focus:not(:focus-visible) { outline: none; }
 .pv-overlay.is-open { opacity: 1; }
 
 .pv-dialog {
-  width: 100%; max-width: 900px; margin: auto;
+  width: 100%; max-width: 1240px; margin: auto;
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 14px; overflow: hidden;
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
@@ -701,7 +701,7 @@ button:focus:not(:focus-visible) { outline: none; }
 .pv-play:hover { color: var(--text); border-color: var(--text-muted); }
 
 .pv-viewport {
-  position: relative; height: 420px; overflow-y: auto; overflow-x: hidden;
+  position: relative; height: 560px; overflow-y: auto; overflow-x: hidden;
   background: var(--bg); scrollbar-width: none; outline: none;
 }
 .pv-viewport::-webkit-scrollbar { width: 0; height: 0; }
