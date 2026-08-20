@@ -544,6 +544,20 @@ button:focus:not(:focus-visible) { outline: none; }
   color: var(--text);
   min-width: 36px;
 }
+.stat-num.highlight-talent {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dot-green);
+  min-width: auto;
+}
+.stat-available {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--dot-green);
+  font-weight: 600;
+}
 
 /* Tools */
 .tool-tags {
