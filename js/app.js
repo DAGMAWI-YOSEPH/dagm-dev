@@ -442,6 +442,32 @@ const App = (() => {
     }
   }
 
+  function renderTestimonials(testimonials) {
+    const grid = document.getElementById('testimonials-grid');
+    if (!grid || !testimonials || !testimonials.length) return;
+
+    grid.innerHTML = testimonials.map(t => {
+      const stars = t.rating
+        ? Array.from({length: 5}, (_, i) =>
+            `<svg class="${i < t.rating ? '' : 'empty'}" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`
+          ).join('')
+        : '';
+
+      return `
+        <div class="testimonial-card">
+          <p class="testimonial-quote">${t.quote}</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-author">
+              <span class="testimonial-name">${t.name}</span>
+              <span class="testimonial-project">${t.project}</span>
+            </div>
+            ${stars ? `<div class="testimonial-stars">${stars}</div>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
   function populateSite(data) {
     document.getElementById('hero-name').textContent = data.meta.name;
     document.getElementById('hero-tagline').textContent = data.meta.tagline;
@@ -459,6 +485,7 @@ const App = (() => {
 
     renderSocials(data.socials);
     renderProjects(data.projects);
+    renderTestimonials(data.testimonials);
     renderSkills(data.skills);
     renderHeroCard(data);
     renderAbout(data);

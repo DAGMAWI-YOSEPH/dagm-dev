@@ -625,6 +625,84 @@ button:focus:not(:focus-visible) { outline: none; }
 .project-row:focus-visible .project-preview-hint { opacity: 1; transform: translateX(0); }
 
 /* ============================================
+   TESTIMONIALS
+   ============================================ */
+
+.testimonials { padding: 80px 60px; border-top: 1px solid var(--border-light); }
+
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;
+}
+
+.testimonial-card {
+  background: var(--scrapbook-bg);
+  border: 1px solid var(--scrapbook-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.testimonial-quote {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.testimonial-quote::before {
+  content: '\201C';
+  font-size: 2rem;
+  line-height: 0;
+  vertical-align: -0.4em;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.testimonial-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.testimonial-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.testimonial-project {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.testimonial-stars svg {
+  width: 14px; height: 14px;
+  fill: var(--dot-yellow);
+}
+.testimonial-stars svg.empty {
+  fill: var(--border);
+}
+
+/* ============================================
    PROJECT PREVIEW MODAL
    ============================================ */
 
@@ -901,6 +979,7 @@ body.pv-locked { overflow: hidden; }
   .hero { grid-template-columns: 1fr; padding: 60px 24px; min-height: auto; gap: 32px; }
   .about { padding: 48px 24px; }
   .projects { padding: 48px 24px; }
+  .testimonials { padding: 48px 24px; }
   .skills { padding: 48px 24px; }
   .contact { padding: 80px 24px; }
   .site-footer { padding: 32px 24px; }
