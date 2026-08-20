@@ -601,8 +601,10 @@ button:focus:not(:focus-visible) { outline: none; }
 
 /* Tools */
 .tool-tags {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 6px;
   flex: 1;
   overflow: hidden;
@@ -617,9 +619,7 @@ button:focus:not(:focus-visible) { outline: none; }
   border: 1px solid var(--border);
   border-radius: 999px;
   white-space: nowrap;
-  transition: border-color 0.2s, color 0.2s, opacity 0.3s;
-  opacity: 1;
-  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
 }
 .tool-tag:hover { border-color: var(--text); color: var(--text); }
 .tool-tag.carousel-hidden { display: none; }

@@ -330,23 +330,14 @@ const App = (() => {
       const el = document.getElementById(containerId);
       if (!el || !items.length) return;
 
-      const ROWS = 3;
-      const perPage = ROWS * 4;
+      const PER_PAGE = 12;
       let page = 0;
-      const totalPages = Math.ceil(items.length / perPage);
+      const totalPages = Math.ceil(items.length / PER_PAGE);
 
       function render() {
-        el.innerHTML = '';
-        const start = page * perPage;
-        const visible = items.slice(start, start + perPage);
-        for (let r = 0; r < ROWS; r++) {
-          const rowItems = visible.slice(r * 4, r * 4 + 4);
-          if (rowItems.length === 0) break;
-          const row = document.createElement('div');
-          row.className = 'carousel-row';
-          row.innerHTML = rowItems.map(s => `<span class="tool-tag">${s}</span>`).join('');
-          el.appendChild(row);
-        }
+        const start = page * PER_PAGE;
+        const visible = items.slice(start, start + PER_PAGE);
+        el.innerHTML = visible.map(s => `<span class="tool-tag">${s}</span>`).join('');
         const prev = document.getElementById(prevId);
         const next = document.getElementById(nextId);
         if (prev) prev.disabled = page === 0;
