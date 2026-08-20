@@ -353,7 +353,7 @@ const App = (() => {
     }
 
     const toolItems = data.skills.flatMap(g => g.items);
-    const skillItems = data.skills.map(g => g.category);
+    const skillItems = data.skills.flatMap(g => g.items);
 
     initCarousel('about-tools', toolItems, 'tools-prev', 'tools-next');
     initCarousel('about-skills', skillItems, 'skills-prev', 'skills-next');
