@@ -4,7 +4,7 @@
     "fullName": "Dagmawi Yoseph",
     "location": "Addis Ababa, Ethiopia",
     "tagline": "I enjoy working with businesses and creative individuals.",
-    "aboutBio": "I'm Dagmawi, a freelance WordPress and Elementor developer based in Addis Ababa, Ethiopia. I build websites that load fast, look sharp, and actually convert visitors into customers.\n\nOver the past three years I've delivered dozens of sites for clients across the US, UK, and Africa — from WooCommerce stores handling real transactions to landing pages that boosted conversion rates by 40%. I care about the details that most people skip: sub-3-second load times, mobile layouts that don't break, and SEO structure that helps people find you.\n\nWhen I'm not building sites, I'm probably tinkering with something on my own. I believe every business deserves a website that works as hard as they do — and I like being the person who makes that happen.",
+    "aboutBio": "Hey, I am a WordPress developer with 3+ years building custom plugins, LMS platforms, membership systems, eCommerce stores, and sites that hold up after launch. I work with business owners who need WordPress done right the first time and maintained with the same standard after.   \n\nHere is what that looks like in practice:  \nA plugin your team actually needed, built from scratch because no off-the-shelf tool did it correctly. A LearnDash course platform that enrolls students, tracks progress, and handles payment without manual work. A site that loads fast, stays secure, and does not break when you update a plugin. A care plan that means someone with real expertise is watching your site every week, not just collecting a fee.  \n\nMy focus is clean builds, honest timelines, and sites that work the way your business needs them to.   \n\nWhat I help with:  \n- Custom WordPress Plugin Development  \n- LearnDash LMS Builds and Customization  \n- MemberPress and Membership System Setup  \n- WooCommerce Development and Configuration  \n- WordPress Web Design (Elementor, custom themes)  \n- Website Care Plans and Ongoing Maintenance  \n- Plugin Debugging and Conflict Resolution  \n- Site Speed and Performance Optimization  \n- WordPress Migration and Security Hardening  \n- Gravity Forms, API Integrations, and Custom Workflows  \n\nTools and platforms I know well: WordPress, LearnDash, MemberPress, WooCommerce, Gravity Forms, Elementor, Advanced Custom Fields, PHP, MySQL, Divi, Gutenburg, Wp Page Bakery, REST API, Stripe, Zapier, Cloudflare.  \n\nMy approach is simple. I look at what your site needs to do for your business. Then I build it to do exactly that. No overcomplicated solutions. No disappearing after launch.   \n\nIf you need a plugin built, a course platform launched, or a developer who will actually keep your site healthy, send me a message.",
     "status": "Currently available for freelance work.",
     "specialization": "Specializing in fast, mobile-responsive, SEO-friendly websites that drive results.",
     "email": "Dagmawi.yoseph@icloud.com",
@@ -30,7 +30,6 @@
       "url": "https://meskelpay.et",
       "status": "ongoing",
       "shot": "img/projects/meskelpay.jpg",
-      "caseStudy": "Ethiopian fintech platform bridging WooCommerce with local payment infrastructure. Built with Next.js 16 and Neon Postgres for real-time transaction processing, with a custom WooCommerce plugin for inventory sync.",
       "stack": [
         "Next.js 16",
         "React 19",
@@ -48,7 +47,6 @@
       "url": "https://jbdondolo.org",
       "status": "ongoing",
       "shot": "img/projects/jb-dondolo.jpg",
-      "caseStudy": "Nonprofit e-commerce site selling handcrafted goods to fund community projects. WooCommerce with LiteSpeed Cache keeps the store fast on shared hosting, even with international traffic.",
       "stack": [
         "WordPress",
         "Divi",
@@ -64,7 +62,6 @@
       "url": "https://syndicoremedia.com",
       "status": "2026",
       "shot": "img/projects/syndicore-media.jpg",
-      "caseStudy": "Creative agency site with a custom WordPress theme and bespoke Elementor widgets. Built custom post types for portfolio management and Nginx caching for sub-2-second loads.",
       "stack": [
         "WordPress",
         "Custom Theme (PHP)",
@@ -80,7 +77,6 @@
       "url": "https://herondance.org",
       "status": "2026",
       "shot": "img/projects/heron-dance.jpg",
-      "caseStudy": "Dance company site on Squarespace with custom CSS for a clean, editorial look. Focused on responsive layouts and fast image loading for their photo-heavy content.",
       "stack": [
         "Squarespace",
         "Custom CSS",
@@ -93,7 +89,6 @@
       "url": "https://lonestarpeptides.org",
       "status": "2026",
       "shot": "img/projects/lonestar-peptides.jpg",
-      "caseStudy": "Supplement store with wholesale pricing tiers, age-gated checkout, and custom payment gateways. WooCommerce with a child theme for client-editable product pages and CF7 for customer inquiries.",
       "stack": [
         "WordPress",
         "Elementor",
@@ -111,7 +106,6 @@
       "url": "https://truelightpools.com",
       "status": "2026",
       "shot": "img/projects/true-light-pools.jpg",
-      "caseStudy": "Pool service company site on Squarespace with custom CSS. Clean service pages and a booking-focused layout designed to convert local search traffic into calls.",
       "stack": [
         "Squarespace",
         "Custom CSS",
@@ -124,7 +118,6 @@
       "url": "https://bpspools.com",
       "status": "2026",
       "shot": "img/projects/bps-pools.jpg",
-      "caseStudy": "Pool supply store with Elementor Pro and Astra theme. Added Ultimate Addons for custom widgets, Breeze Cache for performance, and Smush Pro for image optimization across hundreds of product photos.",
       "stack": [
         "WordPress",
         "Astra Pro",
@@ -141,7 +134,6 @@
       "url": "https://thearchinternational.com",
       "status": "2025",
       "shot": "img/projects/the-arch-international.jpg",
-      "caseStudy": "International consulting firm site built on Hello Elementor with Tablesome for data management. Clean, professional design with structured content for a global audience.",
       "stack": [
         "WordPress",
         "Hello Elementor",
@@ -157,7 +149,6 @@
       "url": "https://rosebookshop.com",
       "status": "2024",
       "shot": "img/projects/rose-bookshop.jpg",
-      "caseStudy": "Online bookstore with WooCommerce, Slider Revolution for featured titles, and Mailchimp integration for newsletter signups. ChapterOne theme customized for a literary, editorial feel.",
       "stack": [
         "WordPress",
         "WPBakery",
