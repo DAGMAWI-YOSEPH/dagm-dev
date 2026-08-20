@@ -4,21 +4,16 @@
     "fullName": "Dagmawi Yoseph",
     "location": "Addis Ababa, Ethiopia",
     "tagline": "I enjoy working with businesses and creative individuals.",
-    "aboutBio": "Hi, I am Dagmawi Top Rated Freelance wordpress developer, wordpress designer, wordpress website, wordpress elementor, wordpress website design, wordpress specialist, Elementor , Elementor Pro | Helping Businesses Build Modern and High-Converting Websites.  \n\nI have delivered Multiple sites that load under 3 seconds, and improved conversion rates by up to 40% for clients via landing pages built with Elementor.   \n\nI am a WordPress and Elementor Pro developer with 3+ years of experience and Multiple websites delivered for clients worldwide. I specialize in building websites that are fast, mobile-responsive, SEO-friendly, and easy to manage.   What I can do for you:  Custom WordPress development (themes, child themes, plugin setup)  Elementor Pro website & landing page design (pixel-perfect, advanced widgets, animations)  WooCommerce store setup & customization (secure checkout, product pages, payment gateways)  Website redesigns & bug fixes Performance optimization (speed, security, SEO structure)   Why clients hire me:  Proven track record with 100% happy clients  Rising Talent status on Upwork (trusted by businesses worldwide)  Clear communication and fast response time  websites that load quickly, convert better, and scale easily  I don't just build websites, I create professional online platforms that grow your business. If you're looking for a reliable WordPress & Elementor expert who can deliver high-quality results, let's connect and make your project a success.   \n\nMy Core Services Include:  Custom WordPress Website Design with Elementor  Full Website Redesigns using Elementor Pro/Free  WordPress WooCommerce Development and eCommerce integration  WordPress plugin development & WordPress theme development  WordPress landing page design & responsive layouts  Ongoing WordPress maintenance, WordPress SEO, and WordPress website optimization   \n\nIf you're looking for a skilled WordPress Developer who delivers high-quality results in WordPress customization, WordPress migration, and complete cms development, let's connect. I'm ready to discuss your project and help you achieve your business goals.",
+    "aboutBio": "I'm Dagmawi, a freelance WordPress and Elementor developer based in Addis Ababa, Ethiopia. I build websites that load fast, look sharp, and actually convert visitors into customers.\n\nOver the past three years I've delivered dozens of sites for clients across the US, UK, and Africa — from WooCommerce stores handling real transactions to landing pages that boosted conversion rates by 40%. I care about the details that most people skip: sub-3-second load times, mobile layouts that don't break, and SEO structure that helps people find you.\n\nWhen I'm not building sites, I'm probably tinkering with something on my own. I believe every business deserves a website that works as hard as they do — and I like being the person who makes that happen.s customization, WordPress migration, and complete cms development, let's connect. I'm ready to discuss your project and help you achieve your business goals.",
     "status": "Currently available for freelance work.",
     "specialization": "Specializing in fast, mobile-responsive, SEO-friendly websites that drive results.",
     "email": "Dagmawi.yoseph@icloud.com",
     "typing_words": [
-      "Top Rated Freelancer",
-      "WordPress Website Developer",
-      "WooCommerce Expert",
-      "WordPress Site Maintenance Expert",
-      "Website Speed Optimization Expert",
-      "WordPress e-Commerce Developer",
-      "WordPress Landing Page Builder",
-      "WordPress Themes Customization Expert",
-      "Elementor Designer",
-      "WordPress Migration Expert"
+      "WordPress Developer",
+      "Elementor Pro Expert",
+      "WooCommerce Specialist",
+      "Speed Optimization",
+      "Landing Page Design"
     ]
   },
   "socials": {
@@ -35,6 +30,7 @@
       "url": "https://meskelpay.et",
       "status": "ongoing",
       "shot": "img/projects/meskelpay.jpg",
+      "caseStudy": "Ethiopian fintech platform bridging WooCommerce with local payment infrastructure. Built with Next.js 16 and Neon Postgres for real-time transaction processing, with a custom WooCommerce plugin for inventory sync.",
       "stack": [
         "Next.js 16",
         "React 19",
@@ -52,6 +48,7 @@
       "url": "https://jbdondolo.org",
       "status": "ongoing",
       "shot": "img/projects/jb-dondolo.jpg",
+      "caseStudy": "Nonprofit e-commerce site selling handcrafted goods to fund community projects. WooCommerce with LiteSpeed Cache keeps the store fast on shared hosting, even with international traffic.",
       "stack": [
         "WordPress",
         "Divi",
@@ -67,6 +64,7 @@
       "url": "https://syndicoremedia.com",
       "status": "2026",
       "shot": "img/projects/syndicore-media.jpg",
+      "caseStudy": "Creative agency site with a custom WordPress theme and bespoke Elementor widgets. Built custom post types for portfolio management and Nginx caching for sub-2-second loads.",
       "stack": [
         "WordPress",
         "Custom Theme (PHP)",
@@ -82,6 +80,7 @@
       "url": "https://herondance.org",
       "status": "2026",
       "shot": "img/projects/heron-dance.jpg",
+      "caseStudy": "Dance company site on Squarespace with custom CSS for a clean, editorial look. Focused on responsive layouts and fast image loading for their photo-heavy content.",
       "stack": [
         "Squarespace",
         "Custom CSS",
@@ -94,6 +93,7 @@
       "url": "https://lonestarpeptides.org",
       "status": "2026",
       "shot": "img/projects/lonestar-peptides.jpg",
+      "caseStudy": "Supplement store with wholesale pricing tiers, age-gated checkout, and custom payment gateways. WooCommerce with a child theme for client-editable product pages and CF7 for customer inquiries.",
       "stack": [
         "WordPress",
         "Elementor",
@@ -111,6 +111,7 @@
       "url": "https://truelightpools.com",
       "status": "2026",
       "shot": "img/projects/true-light-pools.jpg",
+      "caseStudy": "Pool service company site on Squarespace with custom CSS. Clean service pages and a booking-focused layout designed to convert local search traffic into calls.",
       "stack": [
         "Squarespace",
         "Custom CSS",
@@ -123,6 +124,7 @@
       "url": "https://bpspools.com",
       "status": "2026",
       "shot": "img/projects/bps-pools.jpg",
+      "caseStudy": "Pool supply store with Elementor Pro and Astra theme. Added Ultimate Addons for custom widgets, Breeze Cache for performance, and Smush Pro for image optimization across hundreds of product photos.",
       "stack": [
         "WordPress",
         "Astra Pro",
@@ -139,6 +141,7 @@
       "url": "https://thearchinternational.com",
       "status": "2025",
       "shot": "img/projects/the-arch-international.jpg",
+      "caseStudy": "International consulting firm site built on Hello Elementor with Tablesome for data management. Clean, professional design with structured content for a global audience.",
       "stack": [
         "WordPress",
         "Hello Elementor",
@@ -154,6 +157,7 @@
       "url": "https://rosebookshop.com",
       "status": "2024",
       "shot": "img/projects/rose-bookshop.jpg",
+      "caseStudy": "Online bookstore with WooCommerce, Slider Revolution for featured titles, and Mailchimp integration for newsletter signups. ChapterOne theme customized for a literary, editorial feel.",
       "stack": [
         "WordPress",
         "WPBakery",
@@ -164,6 +168,32 @@
         "Contact Form 7",
         "PHP 8.3"
       ]
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Lumbie Mlambo",
+      "project": "JB Dondolo",
+      "rating": 5,
+      "quote": "Dagmawi is incredible in his work and personality! He's very thorough and I've had nothing but everything positive to say about him. If you're looking for professionalism and reliability, Dagmawi is your person. I highly recommend him with no reservations."
+    },
+    {
+      "name": "Jamila Bell",
+      "project": "Syndicore Media",
+      "rating": 5,
+      "quote": "Very satisfied with the work completed by Dagmawi. We needed a new website for our business and he put together a top-tier, beautiful high-end website within 48 hours for us to review and approve. Not only was he attentive to our needs, but he also asked us if there's any revisions that needed to be made and kept consistent communication with us throughout the whole process. Highly recommended!"
+    },
+    {
+      "name": "Roderick Maciver",
+      "project": "Heron Dance",
+      "rating": 5,
+      "quote": "Good work. Thank you."
+    },
+    {
+      "name": "Saaz Kaushik",
+      "project": "The Arch International",
+      "rating": null,
+      "quote": "Thank you Dagmawi for not only building the site like we had thought of with zero references."
     }
   ],
   "skills": [
