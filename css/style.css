@@ -410,9 +410,9 @@ button:focus:not(:focus-visible) { outline: none; }
 .about-scrapbook {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: 1fr;
   gap: 24px;
   margin-top: 8px;
-  align-items: stretch;
 }
 
 .scrapbook-card {
@@ -421,6 +421,8 @@ button:focus:not(:focus-visible) { outline: none; }
   border-radius: var(--radius-lg);
   padding: 32px;
   position: relative;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .scrapbook-card:hover {
@@ -511,11 +513,15 @@ button:focus:not(:focus-visible) { outline: none; }
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 100%;
 }
 
 .scrapbook-sidebar .scrapbook-card {
   flex: 1;
+}
+
+.scrapbook-sidebar .scrapbook-tools {
+  display: flex;
+  flex-direction: column;
 }
 
 .scrapbook-card-title {
@@ -598,6 +604,30 @@ button:focus:not(:focus-visible) { outline: none; }
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  flex: 1;
+}
+
+.tools-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-top: auto;
+  align-self: flex-start;
+  transition: border-color 0.2s, color 0.2s;
+}
+.tools-arrow:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+.tools-arrow svg {
+  display: block;
 }
 .tool-tag {
   font-family: var(--font-mono);
@@ -890,25 +920,14 @@ body.pv-locked { overflow: hidden; }
   transition: border-color 0.2s, color 0.2s;
 }
 .skill-tag:hover { border-color: var(--text); color: var(--text); }
-.skills-toggle, .tools-toggle, .tools-arrow {
+.skills-toggle {
   background: none; border: 1px solid var(--border); border-radius: 999px;
   padding: 8px 24px; font-family: var(--font-mono); font-size: 0.72rem;
   color: var(--text-muted); cursor: pointer; margin-top: 24px;
   transition: border-color 0.2s, color 0.2s;
 }
-.tools-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  border-radius: 50%;
-  margin-top: 16px;
-}
-.tools-arrow svg {
-  display: block;
-}
 .skills-toggle { display: block; margin-left: auto; margin-right: auto; }
-.skills-toggle:hover, .tools-toggle:hover, .tools-arrow:hover { border-color: var(--text); color: var(--text); }
+.skills-toggle:hover { border-color: var(--text); color: var(--text); }
 
 /* ============================================
    CONTACT

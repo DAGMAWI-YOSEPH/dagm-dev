@@ -418,7 +418,7 @@ const App = (() => {
       arrow.addEventListener('click', () => {
         showToolBatch();
       });
-      toolsEl.parentNode.insertBefore(arrow, toolsEl.nextSibling);
+      toolsEl.parentNode.appendChild(arrow);
       showToolBatch();
     }
   }
