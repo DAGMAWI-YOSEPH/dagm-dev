@@ -602,33 +602,65 @@ button:focus:not(:focus-visible) { outline: none; }
 /* Tools */
 .tool-tags {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 6px;
   flex: 1;
+  overflow: hidden;
 }
 
-.tools-arrow {
+.tool-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 4px 12px;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s, opacity 0.3s;
+  opacity: 1;
+}
+.tool-tag:hover { border-color: var(--text); color: var(--text); }
+.tool-tag.carousel-hidden { opacity: 0; height: 0; padding: 0; margin: 0; border: none; overflow: hidden; }
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 120px;
+}
+
+.carousel-arrows {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.carousel-arrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: none;
   border: 1px solid var(--border);
   color: var(--text-muted);
   cursor: pointer;
-  margin-top: auto;
-  align-self: flex-start;
   transition: border-color 0.2s, color 0.2s;
 }
-.tools-arrow:hover {
+.carousel-arrow:hover {
   border-color: var(--text);
   color: var(--text);
 }
-.tools-arrow svg {
-  display: block;
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+  border-color: var(--border);
+  color: var(--text-muted);
 }
+.carousel-arrow svg { display: block; }
 .tool-tag {
   font-family: var(--font-mono);
   font-size: 0.7rem;

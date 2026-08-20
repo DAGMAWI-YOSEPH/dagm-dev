@@ -292,69 +292,6 @@ const App = (() => {
     });
   }
 
-  function renderSkills(skills) {
-    const grid = document.getElementById('skills-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const groups = [];
-    skills.forEach(group => {
-      const div = document.createElement('div');
-      div.className = 'skill-group reveal';
-      div.innerHTML = `
-        <h3>${group.category}</h3>
-        <div class="skill-tags">
-          ${group.items.map(s => `<span class="skill-tag">${s}</span>`).join('')}
-        </div>
-      `;
-      grid.appendChild(div);
-      groups.push(div);
-    });
-
-    if (skills.length <= 3) return;
-
-    let idx = 0;
-    let timer = null;
-    let showAll = false;
-
-    function showBatch() {
-      groups.forEach((g, i) => {
-        g.style.opacity = '0';
-        g.style.display = 'none';
-      });
-      for (let i = 0; i < 3; i++) {
-        const g = groups[(idx + i) % groups.length];
-        g.style.display = '';
-        setTimeout(() => { g.style.opacity = '1'; }, 50);
-      }
-      idx = (idx + 3) % groups.length;
-    }
-
-    function startRotation() {
-      showBatch();
-      timer = setInterval(showBatch, 20000);
-    }
-
-    const btn = document.createElement('button');
-    btn.className = 'skills-toggle';
-    btn.textContent = 'Show all';
-    btn.addEventListener('click', () => {
-      showAll = !showAll;
-      if (showAll) {
-        clearInterval(timer);
-        groups.forEach(g => { g.style.display = ''; g.style.opacity = '1'; });
-        btn.textContent = 'Show less';
-      } else {
-        idx = 0;
-        startRotation();
-        btn.textContent = 'Show all';
-      }
-    });
-    grid.parentNode.insertBefore(btn, grid.nextSibling);
-
-    groups.forEach(g => { g.style.transition = 'opacity 0.4s ease'; });
-    startRotation();
-  }
-
   function renderHeroCard(data) {
     const nameEl = document.getElementById('card-name');
     const locEl = document.getElementById('card-location');
@@ -389,38 +326,45 @@ const App = (() => {
       }
     }
 
-    const toolsEl = document.getElementById('about-tools');
-    if (toolsEl) {
-      const allSkills = data.skills.flatMap(g => g.items);
-      const BATCH = 8;
-      if (allSkills.length <= BATCH) {
-        toolsEl.innerHTML = allSkills.map(s => `<span class="tool-tag">${s}</span>`).join('');
-        return;
-      }
-      toolsEl.style.transition = 'opacity 0.4s ease';
-      let idx = 0;
+    function initCarousel(containerId, items, prevId, nextId) {
+      const el = document.getElementById(containerId);
+      if (!el || !items.length) return;
 
-      function showToolBatch() {
-        toolsEl.style.opacity = '0';
-        setTimeout(() => {
-          const batch = [];
-          for (let i = 0; i < BATCH; i++) batch.push(allSkills[(idx + i) % allSkills.length]);
-          toolsEl.innerHTML = batch.map(s => `<span class="tool-tag">${s}</span>`).join('');
-          toolsEl.style.opacity = '1';
-        }, 300);
-        idx = (idx + BATCH) % allSkills.length;
+      const VISIBLE = 3;
+      let page = 0;
+      const totalPages = Math.ceil(items.length / VISIBLE);
+
+      function render() {
+        el.innerHTML = items.map(s => `<span class="tool-tag">${s}</span>`).join('');
+        const tags = el.querySelectorAll('.tool-tag');
+        tags.forEach((tag, i) => {
+          const start = page * VISIBLE;
+          const end = start + VISIBLE;
+          if (i >= start && i < end) {
+            tag.classList.remove('carousel-hidden');
+          } else {
+            tag.classList.add('carousel-hidden');
+          }
+        });
+        const prev = document.getElementById(prevId);
+        const next = document.getElementById(nextId);
+        if (prev) prev.disabled = page === 0;
+        if (next) next.disabled = page === totalPages - 1;
       }
 
-      const arrow = document.createElement('button');
-      arrow.className = 'tools-arrow';
-      arrow.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
-      arrow.setAttribute('aria-label', 'Show more tools');
-      arrow.addEventListener('click', () => {
-        showToolBatch();
-      });
-      toolsEl.parentNode.appendChild(arrow);
-      showToolBatch();
+      const prev = document.getElementById(prevId);
+      const next = document.getElementById(nextId);
+      if (prev) prev.addEventListener('click', () => { if (page > 0) { page--; render(); } });
+      if (next) next.addEventListener('click', () => { if (page < totalPages - 1) { page++; render(); } });
+
+      render();
     }
+
+    const toolItems = data.skills.flatMap(g => g.items);
+    const skillItems = data.skills.map(g => g.category);
+
+    initCarousel('about-tools', toolItems, 'tools-prev', 'tools-next');
+    initCarousel('about-skills', skillItems, 'skills-prev', 'skills-next');
   }
 
   function renderTestimonials(testimonials) {
@@ -467,7 +411,6 @@ const App = (() => {
     renderSocials(data.socials);
     renderProjects(data.projects);
     renderTestimonials(data.testimonials);
-    renderSkills(data.skills);
     renderHeroCard(data);
     renderAbout(data);
   }
