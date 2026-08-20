@@ -399,8 +399,6 @@ const App = (() => {
       }
       toolsEl.style.transition = 'opacity 0.4s ease';
       let idx = 0;
-      let timer = null;
-      let showAll = false;
 
       function showToolBatch() {
         toolsEl.style.opacity = '0';
@@ -413,32 +411,15 @@ const App = (() => {
         idx = (idx + BATCH) % allSkills.length;
       }
 
-      function startToolRotation() {
+      const arrow = document.createElement('button');
+      arrow.className = 'tools-arrow';
+      arrow.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
+      arrow.setAttribute('aria-label', 'Show more tools');
+      arrow.addEventListener('click', () => {
         showToolBatch();
-        timer = setInterval(showToolBatch, 20000);
-      }
-
-      const btn = document.createElement('button');
-      btn.className = 'tools-toggle';
-      btn.textContent = 'Show all';
-      btn.addEventListener('click', () => {
-        showAll = !showAll;
-        if (showAll) {
-          clearInterval(timer);
-          toolsEl.style.opacity = '0';
-          setTimeout(() => {
-            toolsEl.innerHTML = allSkills.map(s => `<span class="tool-tag">${s}</span>`).join('');
-            toolsEl.style.opacity = '1';
-          }, 300);
-          btn.textContent = 'Show less';
-        } else {
-          idx = 0;
-          startToolRotation();
-          btn.textContent = 'Show all';
-        }
       });
-      toolsEl.parentNode.insertBefore(btn, toolsEl.nextSibling);
-      startToolRotation();
+      toolsEl.parentNode.insertBefore(arrow, toolsEl.nextSibling);
+      showToolBatch();
     }
   }
 

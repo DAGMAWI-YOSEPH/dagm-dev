@@ -412,6 +412,7 @@ button:focus:not(:focus-visible) { outline: none; }
   grid-template-columns: 1.4fr 1fr;
   gap: 24px;
   margin-top: 8px;
+  align-items: stretch;
 }
 
 .scrapbook-card {
@@ -510,6 +511,11 @@ button:focus:not(:focus-visible) { outline: none; }
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%;
+}
+
+.scrapbook-sidebar .scrapbook-card {
+  flex: 1;
 }
 
 .scrapbook-card-title {
@@ -521,6 +527,34 @@ button:focus:not(:focus-visible) { outline: none; }
   margin-bottom: 14px;
   padding-bottom: 8px;
   border-bottom: 1px dashed var(--scrapbook-border);
+}
+
+.scrapbook-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--scrapbook-border);
+}
+.scrapbook-card-header .scrapbook-card-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.scrapbook-available {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--dot-green);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.scrapbook-available .status-dot {
+  width: 6px;
+  height: 6px;
 }
 
 /* Stats */
@@ -856,14 +890,25 @@ body.pv-locked { overflow: hidden; }
   transition: border-color 0.2s, color 0.2s;
 }
 .skill-tag:hover { border-color: var(--text); color: var(--text); }
-.skills-toggle, .tools-toggle {
+.skills-toggle, .tools-toggle, .tools-arrow {
   background: none; border: 1px solid var(--border); border-radius: 999px;
   padding: 8px 24px; font-family: var(--font-mono); font-size: 0.72rem;
   color: var(--text-muted); cursor: pointer; margin-top: 24px;
   transition: border-color 0.2s, color 0.2s;
 }
+.tools-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 50%;
+  margin-top: 16px;
+}
+.tools-arrow svg {
+  display: block;
+}
 .skills-toggle { display: block; margin-left: auto; margin-right: auto; }
-.skills-toggle:hover, .tools-toggle:hover { border-color: var(--text); color: var(--text); }
+.skills-toggle:hover, .tools-toggle:hover, .tools-arrow:hover { border-color: var(--text); color: var(--text); }
 
 /* ============================================
    CONTACT
