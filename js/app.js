@@ -247,9 +247,9 @@ const App = (() => {
       });
     }
 
-    const aboutLinks = document.getElementById('about-social-links');
-    if (aboutLinks) {
-      aboutLinks.innerHTML = '';
+    const aboutFooter = document.getElementById('about-social-footer');
+    if (aboutFooter) {
+      aboutFooter.innerHTML = '';
       Object.entries(socials).forEach(([key, url]) => {
         if (!url || !SOCIAL_ICONS[key]) return;
         const a = document.createElement('a');
@@ -258,7 +258,7 @@ const App = (() => {
         a.target = key === 'email' ? '_self' : '_blank';
         a.rel = 'noopener';
         a.innerHTML = `${SOCIAL_ICONS[key]} <span>${SOCIAL_LABELS[key] || key}</span>`;
-        aboutLinks.appendChild(a);
+        aboutFooter.appendChild(a);
       });
     }
   }
