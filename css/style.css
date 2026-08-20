@@ -410,9 +410,9 @@ button:focus:not(:focus-visible) { outline: none; }
 .about-scrapbook {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  grid-template-rows: 1fr;
   gap: 24px;
   margin-top: 8px;
+  align-items: start;
 }
 
 .scrapbook-card {
@@ -516,7 +516,7 @@ button:focus:not(:focus-visible) { outline: none; }
 }
 
 .scrapbook-sidebar .scrapbook-card {
-  flex: 1;
+  flex: none;
 }
 
 .scrapbook-sidebar .scrapbook-tools {
