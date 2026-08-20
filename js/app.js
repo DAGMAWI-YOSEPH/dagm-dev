@@ -330,7 +330,7 @@ const App = (() => {
       const el = document.getElementById(containerId);
       if (!el || !items.length) return;
 
-      const PER_PAGE = 12;
+      const PER_PAGE = 9;
       let page = 0;
       const totalPages = Math.ceil(items.length / PER_PAGE);
 
