@@ -602,7 +602,8 @@ button:focus:not(:focus-visible) { outline: none; }
 /* Tools */
 .tool-tags {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 6px;
   flex: 1;
   overflow: hidden;
@@ -619,15 +620,15 @@ button:focus:not(:focus-visible) { outline: none; }
   white-space: nowrap;
   transition: border-color 0.2s, color 0.2s, opacity 0.3s;
   opacity: 1;
+  flex-shrink: 0;
 }
 .tool-tag:hover { border-color: var(--text); color: var(--text); }
-.tool-tag.carousel-hidden { opacity: 0; height: 0; padding: 0; margin: 0; border: none; overflow: hidden; }
+.tool-tag.carousel-hidden { opacity: 0; width: 0; padding: 0; margin: 0; border: none; overflow: hidden; }
 
 .carousel-container {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: 120px;
 }
 
 .carousel-arrows {

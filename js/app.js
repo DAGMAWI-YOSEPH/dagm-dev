@@ -349,7 +349,7 @@ const App = (() => {
         const prev = document.getElementById(prevId);
         const next = document.getElementById(nextId);
         if (prev) prev.disabled = page === 0;
-        if (next) next.disabled = page === totalPages - 1;
+        if (next) next.disabled = page >= totalPages - 1;
       }
 
       const prev = document.getElementById(prevId);
