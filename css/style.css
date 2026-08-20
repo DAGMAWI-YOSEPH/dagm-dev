@@ -640,6 +640,8 @@ button:focus:not(:focus-visible) { outline: none; }
   border-radius: var(--radius-lg);
   padding: 28px;
   position: relative;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .testimonial-card:hover {
@@ -653,6 +655,7 @@ button:focus:not(:focus-visible) { outline: none; }
   color: var(--text-secondary);
   margin-bottom: 20px;
   font-style: italic;
+  flex: 1;
 }
 .testimonial-quote::before {
   content: '\201C';
@@ -668,6 +671,9 @@ button:focus:not(:focus-visible) { outline: none; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px dashed var(--scrapbook-border);
 }
 
 .testimonial-author {
