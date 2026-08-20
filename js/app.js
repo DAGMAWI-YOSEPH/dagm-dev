@@ -604,6 +604,37 @@ const App = (() => {
 
   function hideLoader() {}
 
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = form.querySelector('#contact-name').value.trim();
+      const email = form.querySelector('#contact-email-input').value.trim();
+      const message = form.querySelector('#contact-message').value.trim();
+
+      if (!name || !email || !message) return;
+
+      const subject = encodeURIComponent(`Project inquiry from ${name}`);
+      const body = encodeURIComponent(`Hi Dagmawi,\n\nMy name is ${name}.\n\n${message}\n\nBest regards,\n${name}\n${email}`);
+      const mailto = `mailto:Dagmawi.yoseph@icloud.com?subject=${subject}&body=${body}`;
+
+      window.location.href =mailto;
+
+      form.reset();
+      const btn = form.querySelector('.btn');
+      const original = btn.innerHTML;
+      btn.innerHTML = 'Opening email...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.disabled = false;
+      }, 2000);
+    });
+  }
+
   async function init() {
     Router.register('#', () => {
       document.getElementById('site').style.display = 'grid';
@@ -628,6 +659,7 @@ const App = (() => {
     populateSite(data);
     initThemeToggle();
     initTabs();
+    initContactForm();
     hideLoader();
     initAnimations();
     typeEffect();
