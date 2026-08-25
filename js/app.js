@@ -290,13 +290,17 @@ const App = (() => {
       card.innerHTML = `
         <div class="project-row" data-index="${i}">
           <span class="project-num">${String(i + 1).padStart(2, '0')}</span>
-          <span class="project-title">${p.title}</span>
+          <div class="project-info">
+            <span class="project-title">${p.title}</span>
+            ${hasCaseStudy ? `
+              <span class="project-case-link">
+                View case study
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+              </span>
+            ` : ''}
+          </div>
           <span class="project-preview-hint">Preview</span>
           <span class="project-status">${p.status}</span>
-          <span class="project-actions">
-            ${hasCaseStudy ? '<span class="project-case-link">View case study</span>' : ''}
-            <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </span>
         </div>
       `;
 

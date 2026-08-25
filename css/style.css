@@ -748,17 +748,20 @@ button:focus:not(:focus-visible) { outline: none; }
 .project-card { position: relative; }
 .project-card .project-row { cursor: pointer; }
 
-.project-actions {
+.project-info {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  white-space: nowrap;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .project-case-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
   opacity: 0;
@@ -772,6 +775,7 @@ button:focus:not(:focus-visible) { outline: none; }
   transform: translateX(0);
 }
 .project-case-link:hover { color: var(--text); }
+.project-case-link svg { flex-shrink: 0; }
 
 /* Case study in modal */
 .pv-case-study {
@@ -1234,8 +1238,7 @@ body.pv-locked { overflow: hidden; }
   .site-footer { padding: 32px 24px; }
   .project-row { grid-template-columns: 1fr auto; gap: 16px; }
   .project-num, .project-status, .project-preview-hint { display: none; }
-  .project-case-link { opacity: 1; transform: none; font-size: 0.58rem; }
-  .project-actions { gap: 8px; }
+  .project-case-link { opacity: 1; transform: none; font-size: 0.62rem; }
   .pv-overlay { padding: 16px 12px; }
   .pv-head { padding: 16px 16px 12px; }
   .pv-window { margin: 0 16px; }
