@@ -748,6 +748,13 @@ button:focus:not(:focus-visible) { outline: none; }
 .project-card { position: relative; }
 .project-card .project-row { cursor: pointer; }
 
+.project-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
 .project-case-link {
   font-family: var(--font-mono);
   font-size: 0.62rem;
@@ -1228,6 +1235,7 @@ body.pv-locked { overflow: hidden; }
   .project-row { grid-template-columns: 1fr auto; gap: 16px; }
   .project-num, .project-status, .project-preview-hint { display: none; }
   .project-case-link { opacity: 1; transform: none; font-size: 0.58rem; }
+  .project-actions { gap: 8px; }
   .pv-overlay { padding: 16px 12px; }
   .pv-head { padding: 16px 16px 12px; }
   .pv-window { margin: 0 16px; }

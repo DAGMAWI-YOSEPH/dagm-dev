@@ -293,8 +293,10 @@ const App = (() => {
           <span class="project-title">${p.title}</span>
           <span class="project-preview-hint">Preview</span>
           <span class="project-status">${p.status}</span>
-          ${hasCaseStudy ? '<span class="project-case-link">View case study</span>' : ''}
-          <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          <span class="project-actions">
+            ${hasCaseStudy ? '<span class="project-case-link">View case study</span>' : ''}
+            <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </span>
         </div>
       `;
 
