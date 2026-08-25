@@ -270,25 +270,52 @@ const App = (() => {
     count.textContent = `${projects.length} projects`;
     grid.innerHTML = '';
     projects.forEach((p, i) => {
-      const row = document.createElement('a');
-      row.className = 'project-row reveal-line';
-      row.href = p.url;
-      row.target = '_blank';
-      row.rel = 'noopener';
-      row.innerHTML = `
-        <span class="project-num">${String(i + 1).padStart(2, '0')}</span>
-        <span class="project-title">${p.title}</span>
-        <span class="project-preview-hint">Preview</span>
-        <span class="project-status">${p.status}</span>
-        <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      const card = document.createElement('div');
+      card.className = 'project-card reveal-line';
+
+      const hasCaseStudy = p.caseStudy && p.caseStudy.trim();
+
+      card.innerHTML = `
+        <div class="project-row" data-index="${i}">
+          <span class="project-num">${String(i + 1).padStart(2, '0')}</span>
+          <span class="project-title">${p.title}</span>
+          <span class="project-preview-hint">Preview</span>
+          <span class="project-status">${p.status}</span>
+          <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+        ${hasCaseStudy ? `
+          <div class="project-case-study" id="case-study-${i}">
+            <p class="case-study-text">${p.caseStudy}</p>
+            <a class="case-study-link" href="${p.url}" target="_blank" rel="noopener">Visit site &rarr;</a>
+          </div>
+          <button class="case-study-toggle" aria-expanded="false" aria-controls="case-study-${i}">
+            <span class="toggle-text">Read case study</span>
+            <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        ` : ''}
       `;
-      // Plain clicks open the preview; modified clicks keep the normal link behaviour.
+
+      // Preview click on the row
+      const row = card.querySelector('.project-row');
       row.addEventListener('click', (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
         Preview.open(p);
       });
-      grid.appendChild(row);
+
+      // Case study toggle
+      if (hasCaseStudy) {
+        const toggle = card.querySelector('.case-study-toggle');
+        const caseStudy = card.querySelector('.project-case-study');
+        toggle.addEventListener('click', () => {
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!expanded));
+          caseStudy.classList.toggle('is-open');
+          toggle.querySelector('.toggle-text').textContent = expanded ? 'Read case study' : 'Hide case study';
+        });
+      }
+
+      grid.appendChild(card);
     });
   }
 

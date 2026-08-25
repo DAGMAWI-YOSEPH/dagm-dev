@@ -744,6 +744,70 @@ button:focus:not(:focus-visible) { outline: none; }
 .project-row:hover .project-preview-hint,
 .project-row:focus-visible .project-preview-hint { opacity: 1; transform: translateX(0); }
 
+/* Case Study */
+.project-card { position: relative; }
+.project-card .project-row { cursor: pointer; }
+
+.project-case-study {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+  padding: 0 0 0 72px;
+}
+.project-case-study.is-open {
+  max-height: 300px;
+  opacity: 1;
+  padding: 0 0 16px 72px;
+}
+
+.case-study-text {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding: 16px;
+  background: var(--scrapbook-bg);
+  border: 1px solid var(--scrapbook-border);
+  border-radius: var(--radius-md);
+}
+
+.case-study-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.case-study-link:hover { color: var(--text); opacity: 1; }
+
+.case-study-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 72px;
+  margin-bottom: 12px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+.case-study-toggle:hover { color: var(--text); }
+
+.toggle-chevron {
+  transition: transform 0.3s ease;
+}
+.case-study-toggle[aria-expanded="true"] .toggle-chevron {
+  transform: rotate(180deg);
+}
+
 /* ============================================
    TESTIMONIALS
    ============================================ */
@@ -1170,6 +1234,9 @@ body.pv-locked { overflow: hidden; }
   .site-footer { padding: 32px 24px; }
   .project-row { grid-template-columns: 1fr auto; gap: 16px; }
   .project-num, .project-status, .project-preview-hint { display: none; }
+  .project-case-study { padding-left: 0; }
+  .project-case-study.is-open { padding-left: 0; }
+  .case-study-toggle { margin-left: 0; }
   .pv-overlay { padding: 16px 12px; }
   .pv-head { padding: 16px 16px 12px; }
   .pv-window { margin: 0 16px; }
