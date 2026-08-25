@@ -99,6 +99,18 @@ const Preview = (() => {
     visit.href = project.url;
     renderChips(project.stack);
 
+    // Case study
+    const caseStudyEl = el('pv-case-study');
+    const caseTextEl = el('pv-case-text');
+    const caseLinkEl = el('pv-case-link');
+    if (project.caseStudy && project.caseStudy.trim()) {
+      caseTextEl.textContent = project.caseStudy;
+      caseLinkEl.href = project.url;
+      caseStudyEl.hidden = false;
+    } else {
+      caseStudyEl.hidden = true;
+    }
+
     viewport.scrollTop = 0;
     dir = 1;
     setAuto(!reduceMotion);
@@ -281,18 +293,9 @@ const App = (() => {
           <span class="project-title">${p.title}</span>
           <span class="project-preview-hint">Preview</span>
           <span class="project-status">${p.status}</span>
+          ${hasCaseStudy ? '<span class="project-case-link">View case study</span>' : ''}
           <svg class="project-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </div>
-        ${hasCaseStudy ? `
-          <div class="project-case-study" id="case-study-${i}">
-            <p class="case-study-text">${p.caseStudy}</p>
-            <a class="case-study-link" href="${p.url}" target="_blank" rel="noopener">Visit site &rarr;</a>
-          </div>
-          <button class="case-study-toggle" aria-expanded="false" aria-controls="case-study-${i}">
-            <span class="toggle-text">Read case study</span>
-            <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
-        ` : ''}
       `;
 
       // Preview click on the row
@@ -302,18 +305,6 @@ const App = (() => {
         e.preventDefault();
         Preview.open(p);
       });
-
-      // Case study toggle
-      if (hasCaseStudy) {
-        const toggle = card.querySelector('.case-study-toggle');
-        const caseStudy = card.querySelector('.project-case-study');
-        toggle.addEventListener('click', () => {
-          const expanded = toggle.getAttribute('aria-expanded') === 'true';
-          toggle.setAttribute('aria-expanded', String(!expanded));
-          caseStudy.classList.toggle('is-open');
-          toggle.querySelector('.toggle-text').textContent = expanded ? 'Read case study' : 'Hide case study';
-        });
-      }
 
       grid.appendChild(card);
     });
