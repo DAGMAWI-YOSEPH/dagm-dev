@@ -443,7 +443,7 @@ const App = (() => {
 
   function initTabs() {
     const tabs = document.querySelectorAll('.tab');
-    const sections = ['hero', 'about', 'projects', 'skills', 'contact'];
+    const sections = ['hero', 'about', 'projects', 'github', 'contact'];
 
     tabs.forEach(tab => {
       tab.addEventListener('click', (e) => {
@@ -563,6 +563,189 @@ const App = (() => {
 
   function hideLoader() {}
 
+  // --- Custom Cursor ---
+  function initCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    const hoverTargets = 'a, button, .tab, .project-row, .tool-tag, .pv-close, .pv-play, .carousel-arrow, .theme-toggle-mini';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverTargets)) {
+        dot.classList.add('hovering');
+        ring.classList.add('hovering');
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverTargets)) {
+        dot.classList.remove('hovering');
+        ring.classList.remove('hovering');
+      }
+    });
+  }
+
+  // --- Scroll Progress ---
+  function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }, { passive: true });
+  }
+
+  // --- Page Transitions ---
+  function initPageTransitions() {
+    const tabs = document.querySelectorAll('.tab');
+    const body = document.querySelector('.browser-body');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        if (reduceMotion) return;
+        const target = tab.dataset.section;
+        const section = document.getElementById(target);
+        if (!section) return;
+
+        e.preventDefault();
+        document.body.classList.add('page-transitioning');
+
+        // Fade out current visible content
+        const mainContent = document.getElementById('main-content');
+        gsap.to(mainContent, {
+          opacity: 0, y: 8, duration: 0.3, ease: 'power3.in',
+          onComplete: () => {
+            const chrome = document.querySelector('.browser-chrome');
+            const offset = chrome ? chrome.offsetHeight : 0;
+            window.scrollTo({ top: section.offsetTop - offset, behavior: 'instant' });
+
+            // Fade in
+            gsap.fromTo(mainContent,
+              { opacity: 0, y: 8 },
+              { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+                onComplete: () => document.body.classList.remove('page-transitioning')
+              }
+            );
+          }
+        });
+      });
+    });
+  }
+
+  // --- GitHub Activity ---
+  async function initGitHubActivity() {
+    const username = 'DAGMAWI-YOSEPH';
+    const chart = document.getElementById('github-chart');
+    const commitsContainer = document.getElementById('github-commits');
+
+    // Load contribution graph
+    if (chart) {
+      chart.src = `https://ghchart.rshah.org/${username}`;
+    }
+
+    // Fetch recent commits via serverless proxy (includes private repos)
+    if (!commitsContainer) return;
+
+    try {
+      const reposRes = await fetch(`/api/github?type=repos`);
+      if (!reposRes.ok) throw new Error('Failed to fetch repos');
+      const repos = await reposRes.json();
+
+      if (!Array.isArray(repos)) throw new Error('Invalid repos response');
+
+      const allCommits = [];
+      for (const repo of repos.slice(0, 3)) {
+        try {
+          const commitsRes = await fetch(`/api/github?type=commits&repo=${repo.full_name}`);
+          if (commitsRes.ok) {
+            const commits = await commitsRes.json();
+            if (Array.isArray(commits)) {
+              commits.forEach(c => {
+                allCommits.push({
+                  message: c.commit.message.split('\n')[0],
+                  repo: repo.name,
+                  sha: c.sha.substring(0, 7),
+                  date: new Date(c.commit.author.date),
+                  url: c.html_url,
+                  private: repo.private
+                });
+              });
+            }
+          }
+        } catch {}
+      }
+
+      // Sort by date, take top 6
+      allCommits.sort((a, b) => b.date - a.date);
+      const topCommits = allCommits.slice(0, 6);
+
+      if (topCommits.length === 0) {
+        commitsContainer.innerHTML = '<div class="github-error">No recent commits found.</div>';
+        return;
+      }
+
+      commitsContainer.innerHTML = topCommits.map(c => {
+        const timeAgo = getTimeAgo(c.date);
+        return `
+          <a class="github-commit" href="${c.url}" target="_blank" rel="noopener">
+            <span class="github-commit-dot${c.private ? ' private' : ''}"></span>
+            <div class="github-commit-info">
+              <span class="github-commit-msg">${escapeHtml(c.message)}</span>
+              <span class="github-commit-meta">
+                <span class="github-commit-repo">${escapeHtml(c.repo)}${c.private ? ' <span class="github-private-badge">private</span>' : ''}</span>
+                <span class="github-commit-time">${timeAgo}</span>
+              </span>
+            </div>
+            <span class="github-commit-sha">${c.sha}</span>
+          </a>
+        `;
+      }).join('');
+    } catch (err) {
+      commitsContainer.innerHTML = '<div class="github-error">Could not load commits.</div>';
+    }
+  }
+
+  function getTimeAgo(date) {
+    const seconds = Math.floor((new Date() - date) / 1000);
+    if (seconds < 60) return 'just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    if (days < 30) return `${days}d ago`;
+    const months = Math.floor(days / 30);
+    return `${months}mo ago`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
   function initContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
@@ -622,6 +805,10 @@ const App = (() => {
     hideLoader();
     initAnimations();
     typeEffect();
+    initCursor();
+    initScrollProgress();
+    initPageTransitions();
+    initGitHubActivity();
   }
 
   return { init };

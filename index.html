@@ -142,6 +142,19 @@
   </script>
 </head>
 <body>
+  <!-- Grain overlay -->
+  <svg class="grain-overlay" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise)"/>
+  </svg>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
   <a class="skip-link" href="#hero">Skip to content</a>
 
   <!-- ========== PUBLIC SITE ========== -->
@@ -167,6 +180,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             </span>
             <span class="browser-url-text">dagm.dev</span>
+            <div class="scroll-progress" id="scroll-progress"></div>
           </div>
           <button class="theme-toggle-mini" id="theme-toggle" aria-label="Toggle dark mode">
             <svg id="theme-icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -184,6 +198,9 @@
           </a>
           <a href="#projects" class="tab" data-section="projects" role="tab" aria-selected="false">
             <span class="tab-label">Projects</span>
+          </a>
+          <a href="#github" class="tab" data-section="github" role="tab" aria-selected="false">
+            <span class="tab-label">GitHub</span>
           </a>
           <a href="#contact" class="tab" data-section="contact" role="tab" aria-selected="false">
             <span class="tab-label">Contact</span>
@@ -308,6 +325,28 @@
             <span class="section-count" id="project-count"></span>
           </div>
           <div class="projects-grid" id="projects-grid"></div>
+        </section>
+
+        <!-- Section 3.5: GitHub Activity -->
+        <section class="github-activity" id="github">
+          <div class="section-header">
+            <h2 class="section-title">GitHub Activity</h2>
+            <a class="github-profile-link" href="https://github.com/DAGMAWI-YOSEPH" target="_blank" rel="noopener">
+              @DAGMAWI-YOSEPH
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+          <div class="github-layout">
+            <div class="github-contribution-graph">
+              <img id="github-chart" alt="GitHub contribution graph" loading="lazy">
+            </div>
+            <div class="github-recent">
+              <h3 class="github-recent-title">Recent Commits</h3>
+              <div class="github-commits" id="github-commits">
+                <div class="github-loading">Loading commits...</div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- Section 4: Testimonials -->
