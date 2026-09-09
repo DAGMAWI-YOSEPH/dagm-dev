@@ -5,6 +5,8 @@
 
 :root {
   --transition: 0.4s;
+  --spring-duration: 0.4s;
+  --spring-bounce: 0;
   --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
@@ -13,6 +15,10 @@
   --radius-lg: 16px;
   --sidebar-w: 60px;
   --chrome-h: 92px;
+  --chrome-bg-light: rgba(236, 233, 225, 0.72);
+  --chrome-bg-dark: rgba(29, 29, 29, 0.72);
+  --chrome-border-light: rgba(212, 208, 200, 0.12);
+  --chrome-border-dark: rgba(255, 255, 255, 0.08);
 }
 
 /* --- LIGHT --- */
@@ -43,6 +49,8 @@
   --scrapbook-accent: #e8d5a3;
   --scrapbook-highlight: #fff3cd;
   --tab-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+  --chrome-bg: var(--chrome-bg-light);
+  --chrome-border: var(--chrome-border-light);
 }
 
 /* --- DARK --- */
@@ -73,6 +81,8 @@
   --scrapbook-accent: #2a2520;
   --scrapbook-highlight: #2a2520;
   --tab-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  --chrome-bg: var(--chrome-bg-dark);
+  --chrome-border: var(--chrome-border-dark);
 }
 
 /* ============================================
@@ -169,9 +179,10 @@ button:focus:not(:focus-visible) { outline: none; }
   position: sticky;
   top: 0;
   z-index: 150;
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border);
-  transition: background var(--transition) ease;
+  background: var(--chrome-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--chrome-border);
+  transition: background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
 }
 
 .browser-titlebar {
@@ -230,23 +241,29 @@ button:focus:not(:focus-visible) { outline: none; }
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: clamp(0.04em, 0.06em, 0.08em);
   text-transform: uppercase;
   color: var(--text-muted);
   background: var(--bg-tab);
   border: 1px solid var(--border);
   border-bottom: none;
   border-radius: 10px 10px 0 0;
-  transition: all 0.25s ease;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.1s ease;
   white-space: nowrap;
   text-decoration: none;
   transform: translateY(1px);
+  will-change: transform, background, color;
 }
 
 .tab:hover {
   color: var(--text-secondary);
   background: var(--bg-elevated);
   opacity: 1;
+}
+
+.tab:active {
+  transform: scale(0.98);
+  transition: transform 0.05s ease;
 }
 
 .tab.active {
@@ -301,7 +318,7 @@ button:focus:not(:focus-visible) { outline: none; }
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 6vw, 5.5rem);
   font-weight: 900; line-height: 0.95;
-  letter-spacing: -0.04em; margin-bottom: 20px;
+  letter-spacing: clamp(-0.04em, -0.02em, -0.01em); margin-bottom: 20px;
   min-height: 1em;
 }
 .hero-role { font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 20px; }
@@ -1504,7 +1521,73 @@ body.pv-locked { overflow: hidden; }
 }
 
 /* ============================================
-   ANIMATIONS (GSAP initial states)
+   REDUCED MOTION / TRANSPARENCY / CONTRAST
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring,
+  .grain-overlay { display: none !important; }
+  .typing-cursor { animation: none !important; opacity: 1; }
+  .hero-card,
+  .tab,
+  .btn,
+  .scrapbook-card,
+  .project-row,
+  .testimonial-card,
+  .pv-overlay,
+  .pv-dialog,
+  .pv-viewport,
+  .github-commit,
+  .project-card,
+  .card-img img {
+    transition: none !important;
+    animation: none !important;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* GSAP ScrollTrigger disabled in JS */
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .browser-chrome {
+    background: var(--bg-elevated) !important;
+    backdrop-filter: none !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .pv-overlay {
+    background: rgba(10, 10, 10, 0.8) !important;
+    backdrop-filter: none !important;
+  }
+  .grain-overlay { display: none !important; }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border: #999;
+    --border-light: #bbb;
+  }
+  [data-theme="dark"] {
+    --border: #555;
+    --border-light: #444;
+  }
+  .tab,
+  .btn,
+  .project-row,
+  .scrapbook-card,
+  .testimonial-card,
+  .pv-dialog,
+  .form-group input,
+  .form-group textarea {
+    border-width: 2px !important;
+  }
+}
+
+/* ============================================
+   ANIMATIONS (Motion One initial states)
    ============================================ */
 
 .reveal { opacity: 0; transform: translateY(30px); }

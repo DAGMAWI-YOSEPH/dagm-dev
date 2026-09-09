@@ -1,5 +1,13 @@
 {
   "name": "dagm-dev",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build step'",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "motion": "^10.16.4"
+  }
 }

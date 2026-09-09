@@ -1,3 +1,56 @@
+/* ============================================
+   DAGM.DEV — Motion One Edition
+   Replaces GSAP with Motion One springs for
+   interruptible, physics-based animations.
+   ============================================ */
+
+import { animate, scroll, spring } from 'https://esm.sh/motion@10.16.4';
+
+let motionLoaded = true;
+try {
+  if (typeof animate !== 'function') throw new Error('Motion One not loaded');
+} catch (e) {
+  motionLoaded = false;
+  console.warn('Motion One failed to load, using CSS fallbacks');
+}
+
+const SPRING_NORMAL = motionLoaded ? spring({ stiffness: 300, damping: 30 }) : 'ease-out';
+const SPRING_GENTLE = motionLoaded ? spring({ stiffness: 200, damping: 25 }) : 'ease-out';
+const SPRING_SNAPPY = motionLoaded ? spring({ stiffness: 400, damping: 35 }) : 'ease-out';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function revealSpring(el, delay = 0) {
+  if (!el) return;
+  if (reduceMotion || !motionLoaded) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    return;
+  }
+  animate(el, { opacity: [0, 1], y: [30, 0] }, { duration: 0.6, delay, easing: SPRING_GENTLE });
+}
+
+function revealLinesSpring(selector, stagger = 0.06) {
+  const els = document.querySelectorAll(selector);
+  if (reduceMotion || !motionLoaded) { els.forEach(e => { e.style.opacity = '1'; e.style.transform = 'none'; }); return; }
+  els.forEach((el, i) => {
+    animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.5, delay: i * stagger, easing: SPRING_SNAPPY });
+  });
+}
+
+function scrollReveal(els, easing = SPRING_GENTLE) {
+  if (reduceMotion || !motionLoaded) { els.forEach(e => { e.style.opacity = '1'; e.style.transform = 'none'; }); return; }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animate(entry.target, { opacity: [0, 1], y: [30, 0] }, { duration: 0.6, easing });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -15% 0px' });
+  els.forEach(el => observer.observe(el));
+}
+
 /* Project preview: a browser-window mockup that auto-scrolls a full-page
    screenshot of the build, with the stack used underneath. */
 const Preview = (() => {
@@ -87,7 +140,7 @@ const Preview = (() => {
     try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
   }
 
-  function open(project) {
+  function open(project, triggerEl) {
     if (!overlay) return;
     lastFocus = document.activeElement;
 
@@ -139,6 +192,16 @@ const Preview = (() => {
 
     overlay.hidden = false;
     document.body.classList.add('pv-locked');
+
+    // P5: Set transform-origin to trigger card for natural enter
+    if (triggerEl && dialog && !reduceMotion) {
+      const triggerRect = triggerEl.getBoundingClientRect();
+      const dialogRect = dialog.getBoundingClientRect();
+      const originX = ((triggerRect.left + triggerRect.width / 2) / window.innerWidth) * 100;
+      const originY = ((triggerRect.top + triggerRect.height / 2) / window.innerHeight) * 100;
+      dialog.style.transformOrigin = `${originX}% ${originY}%`;
+    }
+
     requestAnimationFrame(() => overlay.classList.add('is-open'));
     el('pv-close').focus();
   }
@@ -309,7 +372,7 @@ const App = (() => {
       row.addEventListener('click', (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
-        Preview.open(p);
+        Preview.open(p, row);
       });
 
       grid.appendChild(card);
@@ -439,7 +502,7 @@ const App = (() => {
     urlText.textContent = section === 'hero' || !section ? 'dagm.dev' : section + '.dagm.dev';
   }
 
-  // --- Tab Navigation ---
+  // --- Tab Navigation (Spring Feedback) ---
 
   function initTabs() {
     const tabs = document.querySelectorAll('.tab');
@@ -457,6 +520,19 @@ const App = (() => {
           window.scrollTo({ top, behavior: 'smooth' });
         }
       });
+
+      // Spring feedback on pointer interactions (P4)
+      if (!reduceMotion && motionLoaded) {
+        tab.addEventListener('pointerdown', () => {
+          animate(tab, { scale: 0.95 }, { duration: 0.08, easing: SPRING_SNAPPY });
+        });
+        tab.addEventListener('pointerup', () => {
+          animate(tab, { scale: [0.95, 1.02, 1] }, { duration: 0.25, easing: SPRING_SNAPPY });
+        });
+        tab.addEventListener('pointerleave', () => {
+          animate(tab, { scale: 1 }, { duration: 0.15, easing: SPRING_GENTLE });
+        });
+      }
     });
 
     const observer = new IntersectionObserver((entries) => {
@@ -487,51 +563,52 @@ const App = (() => {
   }
 
   function initAnimations() {
-    gsap.registerPlugin(ScrollTrigger);
+    if (reduceMotion || !motionLoaded) {
+      document.querySelectorAll('.reveal, .reveal-line').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
 
-    gsap.from('.hero-greeting', { opacity: 0, y: 20, duration: 0.6, delay: 0.2 });
-    gsap.from('.hero-name', { opacity: 0, y: 30, duration: 0.8, delay: 0.35 });
-    gsap.from('.hero-role', { opacity: 0, y: 20, duration: 0.6, delay: 0.5 });
-    gsap.from('.hero-tagline', { opacity: 0, y: 20, duration: 0.6, delay: 0.6 });
-    gsap.from('.hero-status', { opacity: 0, y: 15, duration: 0.5, delay: 0.7 });
-    gsap.from('.hero-actions', { opacity: 0, y: 15, duration: 0.5, delay: 0.8 });
-    gsap.from('.hero-card', { opacity: 0, y: 40, duration: 0.8, delay: 0.5, ease: 'power2.out' });
+    revealSpring(document.querySelector('.hero-greeting'), 0.2);
+    revealSpring(document.querySelector('.hero-name'), 0.35);
+    revealSpring(document.querySelector('.hero-role'), 0.5);
+    revealSpring(document.querySelector('.hero-tagline'), 0.6);
+    revealSpring(document.querySelector('.hero-status'), 0.7);
+    revealSpring(document.querySelector('.hero-actions'), 0.8);
+    revealSpring(document.querySelector('.hero-card'), 0.5);
 
-    gsap.from('.scrapbook-main', {
-      opacity: 0, y: 30, duration: 0.7,
-      scrollTrigger: { trigger: '.about', start: 'top 75%' }
-    });
-    gsap.from('.scrapbook-sidebar > *', {
-      opacity: 0, y: 20, duration: 0.5, stagger: 0.1,
-      scrollTrigger: { trigger: '.about', start: 'top 70%' }
-    });
+    const aboutReveals = document.querySelectorAll('.scrapbook-main, .scrapbook-sidebar > *');
+    scrollReveal(aboutReveals, SPRING_GENTLE);
 
-    ScrollTrigger.batch('.reveal-line', {
-      onEnter: (batch) => {
-        gsap.to(batch, { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' });
-      },
-      start: 'top 88%'
-    });
+    const lineReveals = document.querySelectorAll('.reveal-line');
+    const lineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const siblings = Array.from(entry.target.parentElement.children).filter(c => c.classList.contains('reveal-line'));
+          siblings.forEach((el, i) => {
+            animate(el, { opacity: [0, 1], y: [15, 0] }, { duration: 0.5, delay: i * 0.06, easing: SPRING_SNAPPY });
+            lineObserver.unobserve(el);
+          });
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    lineReveals.forEach(el => lineObserver.observe(el));
 
-    ScrollTrigger.batch('.reveal', {
-      onEnter: (batch) => {
-        gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' });
-      },
-      start: 'top 85%'
-    });
+    const blockReveals = document.querySelectorAll('.reveal');
+    const blockObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animate(entry.target, { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, easing: SPRING_GENTLE });
+          blockObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -15% 0px' });
+    blockReveals.forEach(el => blockObserver.observe(el));
 
-    gsap.from('.contact-heading', {
-      opacity: 0, y: 40, duration: 0.8,
-      scrollTrigger: { trigger: '.contact', start: 'top 75%' }
-    });
-    gsap.from('.contact-sub', {
-      opacity: 0, y: 20, duration: 0.6,
-      scrollTrigger: { trigger: '.contact', start: 'top 70%' }
-    });
-    gsap.from('.contact-email', {
-      opacity: 0, y: 20, duration: 0.6,
-      scrollTrigger: { trigger: '.contact', start: 'top 65%' }
-    });
+    const contactReveals = document.querySelectorAll('.contact-heading, .contact-sub, .contact-email');
+    scrollReveal(contactReveals, SPRING_GENTLE);
   }
 
   function initThemeToggle() {
@@ -616,11 +693,10 @@ const App = (() => {
     }, { passive: true });
   }
 
-  // --- Page Transitions ---
+  // --- Page Transitions (Motion One) ---
   function initPageTransitions() {
     const tabs = document.querySelectorAll('.tab');
     const body = document.querySelector('.browser-body');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     tabs.forEach(tab => {
       tab.addEventListener('click', (e) => {
@@ -632,24 +708,37 @@ const App = (() => {
         e.preventDefault();
         document.body.classList.add('page-transitioning');
 
-        // Fade out current visible content
         const mainContent = document.getElementById('main-content');
-        gsap.to(mainContent, {
-          opacity: 0, y: 8, duration: 0.3, ease: 'power3.in',
-          onComplete: () => {
+        if (motionLoaded) {
+          animate(mainContent, { opacity: [1, 0], y: [0, 8] }, {
+            duration: 0.3,
+            easing: SPRING_SNAPPY
+          }).finished.then(() => {
             const chrome = document.querySelector('.browser-chrome');
             const offset = chrome ? chrome.offsetHeight : 0;
             window.scrollTo({ top: section.offsetTop - offset, behavior: 'instant' });
 
-            // Fade in
-            gsap.fromTo(mainContent,
-              { opacity: 0, y: 8 },
-              { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
-                onComplete: () => document.body.classList.remove('page-transitioning')
-              }
-            );
-          }
-        });
+            animate(mainContent, { opacity: [0, 1], y: [8, 0] }, {
+              duration: 0.5,
+              easing: SPRING_GENTLE
+            }).finished.then(() => {
+              document.body.classList.remove('page-transitioning');
+            });
+          });
+        } else {
+          // CSS fallback
+          mainContent.style.transition = 'opacity 0.3s, transform 0.3s';
+          mainContent.style.opacity = '0';
+          mainContent.style.transform = 'translateY(8px)';
+          setTimeout(() => {
+            const chrome = document.querySelector('.browser-chrome');
+            const offset = chrome ? chrome.offsetHeight : 0;
+            window.scrollTo({ top: section.offsetTop - offset, behavior: 'instant' });
+            mainContent.style.opacity = '1';
+            mainContent.style.transform = 'translateY(0)';
+            setTimeout(() => document.body.classList.remove('page-transitioning'), 300);
+          }, 300);
+        }
       });
     });
   }
